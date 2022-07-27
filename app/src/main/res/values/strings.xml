@@ -4,5 +4,8 @@
     <string name="title_lineup">LineUp</string>
     <string name="title_article">Article</string>
     <string name="title_schedule">Schedule</string>
+    <string name="formation">Formation</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

@@ -1,6 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/nav_lineup">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_lineup"
+    app:startDestination="@id/f442Fragment">
 
+    <fragment
+        android:id="@+id/f442Fragment"
+        android:name="com.example.atletico.ui.lineup.F442Fragment"
+        android:label="fragment_lineup"
+        tools:layout="@layout/fragment_f442" >
+        <action
+            android:id="@+id/action_f442Fragment_to_playersFragment"
+            app:destination="@id/playersFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/f3142Fragment"
+        android:name="com.example.atletico.ui.lineup.F3142Fragment"
+        android:label="fragment_f3142"
+        tools:layout="@layout/fragment_f3142" >
+        <action
+            android:id="@+id/action_f3142Fragment_to_playersFragment"
+            app:destination="@id/playersFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/playersFragment"
+        android:name="com.example.atletico.ui.lineup.PlayersFragment"
+        android:label="PlayersFragment" >
+        <action
+            android:id="@+id/action_playersFragment_to_f442Fragment"
+            app:destination="@id/f442Fragment" />
+        <action
+            android:id="@+id/action_playersFragment_to_f3142Fragment"
+            app:destination="@id/f3142Fragment" />
+    </fragment>
 </navigation>

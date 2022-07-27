@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/nav_article">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_article"
+    app:startDestination="@id/articleFragment">
 
+    <fragment
+        android:id="@+id/articleFragment"
+        android:name="com.example.atletico.ui.article.ArticleFragment"
+        android:label="fragment_article"
+        tools:layout="@layout/fragment_article" >
+        <action
+            android:id="@+id/action_articleFragment_to_fragment2"
+            app:destination="@id/fragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment2"
+        android:name="com.example.atletico.ui.article.Fragment2"
+        android:label="fragment_2"
+        tools:layout="@layout/fragment_2" />
 </navigation>
