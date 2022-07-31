@@ -10,31 +10,21 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.setFragmentResult
 import androidx.navigation.fragment.findNavController
 import com.example.atletico.R
-import com.example.atletico.databinding.FragmentF442Binding
 import com.example.atletico.databinding.FragmentLineUpBinding
 
-class F442Fragment : Fragment() {
-    private val lineupviewModel: LineupViewModel by activityViewModels()
-    private var binding: FragmentF442Binding? = null
+class LineupFragment : Fragment() {
+
+    private var binding: FragmentLineUpBinding? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val fragmentBinding = FragmentF442Binding.inflate(inflater, container, false)
+        val fragmentBinding = FragmentLineUpBinding.inflate(inflater, container, false)
         binding = fragmentBinding
 
-        binding?.apply {
-            lifecycleOwner = viewLifecycleOwner
-            viewModel = lineupviewModel
-            fragmentf442 = this@F442Fragment
-        }
-        return fragmentBinding.root
-    }
 
-    fun goToPlayerList(position: Int){
-        setFragmentResult("REQUEST_KEY", bundleOf("KEY" to position))
-        findNavController().navigate(R.id.action_f442Fragment_to_playersFragment)
+        return fragmentBinding.root
     }
 
     override fun onDestroyView() {

@@ -7,15 +7,13 @@
 
     <fragment
         android:id="@+id/f442Fragment"
-        android:name="com.example.atletico.ui.lineup.F442Fragment"
+        android:name="com.example.atletico.ui.lineup.LineupFragment"
         android:label="fragment_lineup"
-        tools:layout="@layout/fragment_f442" >
+        tools:layout="@layout/fragment_line_up" >
         <action
             android:id="@+id/action_f442Fragment_to_playersFragment"
             app:destination="@id/playersFragment" />
-        <action
-            android:id="@+id/action_f442Fragment_to_f3142Fragment"
-            app:destination="@id/f3142Fragment" />
+
     </fragment>
 
     <fragment
@@ -26,9 +24,6 @@
         <action
             android:id="@+id/action_f3142Fragment_to_playersFragment"
             app:destination="@id/playersFragment" />
-        <action
-            android:id="@+id/action_f3142Fragment_to_f442Fragment"
-            app:destination="@id/f442Fragment" />
     </fragment>
     <fragment
         android:id="@+id/playersFragment"
