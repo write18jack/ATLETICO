@@ -4,33 +4,22 @@ import android.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
-import androidx.databinding.DataBindingUtil.bind
-import androidx.databinding.DataBindingUtil.setContentView
-import androidx.drawerlayout.widget.DrawerLayout
+import android.view.View
+import android.widget.AdapterView
 import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
 import com.example.atletico.databinding.ActivityMainBinding
 import com.example.atletico.ui.BottomNavManager
-import com.example.atletico.ui.home.HomeFragment
-import com.google.android.material.navigation.NavigationView
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.custom_top_bar.*
 
 class MainActivity : AppCompatActivity() {
 
     private var bottomNavManager: BottomNavManager? = null
+    private val binding: ActivityMainBinding? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setupNavigationManager()
-
-        this.supportActionBar!!.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
-
-        supportActionBar!!.setDisplayShowCustomEnabled(true)
-        supportActionBar!!.setCustomView(R.layout.custom_top_bar)
     }
 
     private fun setupNavigationManager(){

@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_f442Fragment_to_playersFragment"
             app:destination="@id/playersFragment" />
+        <action
+            android:id="@+id/action_f442Fragment_to_f3142Fragment"
+            app:destination="@id/f3142Fragment" />
     </fragment>
 
     <fragment
@@ -23,6 +26,9 @@
         <action
             android:id="@+id/action_f3142Fragment_to_playersFragment"
             app:destination="@id/playersFragment" />
+        <action
+            android:id="@+id/action_f3142Fragment_to_f442Fragment"
+            app:destination="@id/f442Fragment" />
     </fragment>
     <fragment
         android:id="@+id/playersFragment"

@@ -21,6 +21,8 @@
             android:text="@string/title_lineup"/>
 
         <Spinner
+            android:id="@+id/spinner"
+            android:entries="@array/spinner_items"
             android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
