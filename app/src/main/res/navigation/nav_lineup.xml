@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/f442Fragment"
-        android:name="com.example.atletico.ui.lineup.F442Fragment"
+        android:name="com.example.atletico.ui.lineup.LineUpFragment"
         android:label="fragment_lineup"
-        tools:layout="@layout/fragment_f442" >
+        tools:layout="@layout/fragment_line_up" >
         <action
             android:id="@+id/action_f442Fragment_to_playersFragment"
             app:destination="@id/playersFragment" />

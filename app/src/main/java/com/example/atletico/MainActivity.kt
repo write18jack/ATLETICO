@@ -1,20 +1,12 @@
 package com.example.atletico
 
-import android.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Menu
-import android.view.View
-import android.widget.AdapterView
-import androidx.navigation.findNavController
-import com.example.atletico.databinding.ActivityMainBinding
 import com.example.atletico.ui.BottomNavManager
-import kotlinx.android.synthetic.main.custom_top_bar.*
 
 class MainActivity : AppCompatActivity() {
 
     private var bottomNavManager: BottomNavManager? = null
-    private val binding: ActivityMainBinding? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
