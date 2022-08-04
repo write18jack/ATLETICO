@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.example.atletico.ui.article.ArticleViewModel" />
+
+        <variable
+            name="fragment2"
+            type="com.example.atletico.ui.article.Fragment2" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.article.Fragment2">
+
+        <!-- TODO: Update blank fragment layout -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="SSS" />
+
+    </FrameLayout>
+
+
+</layout>
