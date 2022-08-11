@@ -15,14 +15,11 @@
             android:id="@+id/action_lineupFragment_to_playersFragment"
             app:destination="@id/playersFragment" />
         <action
-            android:id="@+id/action_lineupFragment_to_f442Fragment"
-            app:destination="@id/f442Fragment"
-            app:popUpTo="@id/lineupFragment" />
-        <action
             android:id="@+id/action_lineupFragment_to_f3142Fragment"
-            app:destination="@id/f3142Fragment"
-            app:popUpTo="@id/lineupFragment"
-            app:popUpToInclusive="false" />
+            app:destination="@id/f3142Fragment" />
+        <action
+            android:id="@+id/action_lineupFragment_to_f442Fragment"
+            app:destination="@id/f442Fragment" />
     </fragment>
 
     <fragment
@@ -35,10 +32,14 @@
             app:destination="@id/lineupFragment" />
         <action
             android:id="@+id/action_playersFragment_to_f442Fragment"
-            app:destination="@id/f442Fragment" />
+            app:destination="@id/f442Fragment"
+            app:popUpTo="@id/f442Fragment"
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_playersFragment_to_f3142Fragment"
-            app:destination="@id/f3142Fragment" />
+            app:destination="@id/f3142Fragment"
+            app:popUpTo="@id/f3142Fragment"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
@@ -49,6 +50,10 @@
         <action
             android:id="@+id/action_f442Fragment_to_playersFragment"
             app:destination="@id/playersFragment" />
+        <action
+            android:id="@+id/action_f442Fragment_to_lineupFragment"
+            app:destination="@id/lineupFragment"
+            />
     </fragment>
 
     <fragment
@@ -60,5 +65,9 @@
         <action
             android:id="@+id/action_f3142Fragment_to_playersFragment"
             app:destination="@id/playersFragment" />
+        <action
+            android:id="@+id/action_f3142Fragment_to_lineupFragment"
+            app:destination="@id/lineupFragment"
+            />
     </fragment>
 </navigation>
