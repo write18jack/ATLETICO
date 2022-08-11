@@ -11,19 +11,18 @@
         android:label="fragment_lineup"
         tools:layout="@layout/fragment_line_up" >
 
-
         <action
             android:id="@+id/action_lineupFragment_to_playersFragment"
             app:destination="@id/playersFragment" />
         <action
             android:id="@+id/action_lineupFragment_to_f442Fragment"
-            app:destination="@id/f442Fragment" />
+            app:destination="@id/f442Fragment"
+            app:popUpTo="@id/lineupFragment" />
         <action
             android:id="@+id/action_lineupFragment_to_f3142Fragment"
-            app:destination="@id/f3142Fragment" />
-        <action
-            android:id="@+id/action_lineupFragment_to_imageAdapterFragment"
-            app:destination="@id/imageAdapterFragment" />
+            app:destination="@id/f3142Fragment"
+            app:popUpTo="@id/lineupFragment"
+            app:popUpToInclusive="false" />
     </fragment>
 
     <fragment
@@ -48,9 +47,6 @@
         android:label="fragment_f442"
         tools:layout="@layout/fragment_f442" >
         <action
-            android:id="@+id/action_f442Fragment_to_lineupFragment"
-            app:destination="@id/lineupFragment" />
-        <action
             android:id="@+id/action_f442Fragment_to_playersFragment"
             app:destination="@id/playersFragment" />
     </fragment>
@@ -62,19 +58,7 @@
         tools:layout="@layout/fragment_f3142" >
 
         <action
-            android:id="@+id/action_f3142Fragment_to_lineupFragment"
-            app:destination="@id/lineupFragment" />
-        <action
             android:id="@+id/action_f3142Fragment_to_playersFragment"
             app:destination="@id/playersFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/imageAdapterFragment"
-        android:name="com.example.atletico.ui.lineup.ImageAdapterFragment"
-        android:label="fragment_image_adapter"
-        tools:layout="@layout/fragment_image_adapter" >
-        <action
-            android:id="@+id/action_imageAdapterFragment_to_lineupFragment"
-            app:destination="@id/lineupFragment" />
     </fragment>
 </navigation>

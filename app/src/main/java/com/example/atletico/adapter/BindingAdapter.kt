@@ -52,6 +52,6 @@ object BindingAdapter {
 
         Image.let {
             view.setBackgroundResource(it)
-        } ?: view.setImageDrawable(null)
+        }
     }
 }

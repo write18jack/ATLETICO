@@ -24,8 +24,9 @@ class PlayersAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(
-        DataBindingUtil.inflate(LayoutInflater.from(parent.context),
-        R.layout.player_cell, parent, false))
+        DataBindingUtil.inflate(
+            LayoutInflater.from(parent.context),
+            R.layout.player_cell, parent, false))
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         viewHolder.bind(playerList[position])

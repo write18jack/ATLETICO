@@ -34,7 +34,7 @@ class F3142Fragment : Fragment() {
     }
 
     fun goToPlayerList(position:Int){
-        setFragmentResult("REQUEST_KEY", bundleOf("KEY" to position))
+        setFragmentResult("REQUEST_KEY", bundleOf("KEY" to position, "KEY2" to 3142))
         findNavController().navigate(R.id.action_f3142Fragment_to_playersFragment)
     }
     override fun onDestroyView() {

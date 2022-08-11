@@ -1,6 +1,7 @@
 package com.example.atletico.ui.lineup
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -32,8 +33,28 @@ class F442Fragment : Fragment() {
         return fragmentBinding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding?.lineupToolbar?.inflateMenu(R.menu.line_up_top_bar)
+
+        binding?.lineupToolbar?.setOnMenuItemClickListener {
+            when(it.itemId){
+                R.id.formation -> {
+                    Log.d("Tag", "LineupF: ${it.itemId}")
+                        //binding1?.viewpager2?.adapter = MyAdapter(this)
+                    true
+                }
+                R.id.players -> {
+                    findNavController().navigate(R.id.action_f442Fragment_to_playersFragment)
+                    true
+                }
+                else -> false
+            }
+        }
+    }
+
     fun goToPlayerList(position: Int){
-        setFragmentResult("REQUEST_KEY", bundleOf("KEY" to position))
+        setFragmentResult("REQUEST_KEY", bundleOf("KEY" to position, "KEY2" to 442))
         findNavController().navigate(R.id.action_f442Fragment_to_playersFragment)
     }
 

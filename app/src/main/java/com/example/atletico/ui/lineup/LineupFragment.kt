@@ -34,7 +34,7 @@ class LineupFragment : Fragment() {
             when(it.itemId){
                 R.id.formation -> {
                     Log.d("Tag", "LineupF: ${it.itemId}")
-                    findNavController().navigate(R.id.action_lineupFragment_to_imageAdapterFragment)
+                    binding?.viewpager2?.adapter = MyAdapter(this)
                     true
                 }
                 R.id.players -> {
@@ -43,6 +43,22 @@ class LineupFragment : Fragment() {
                 }
                 else -> false
             }
+        }
+    }
+    private inner class MyAdapter(
+        fa: LineupFragment
+    ): FragmentStateAdapter(fa) {
+
+        val formationList = listOf(
+            Pager("4-4-2", R.drawable.f442),
+            Pager("3-1-4-2", R.drawable.f3142)
+        )
+
+        override fun getItemCount(): Int = formationList.size
+
+        //スライドでimageを表示する
+        override fun createFragment(position: Int): Fragment {
+            return ImageFragment.newInstance(formationList[position])
         }
     }
 

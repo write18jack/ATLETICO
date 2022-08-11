@@ -20,6 +20,7 @@ class PlayersFragment : Fragment(), RecyclerViewClickListener{
 
     private var binding: FragmentPlayersBinding? = null
     private val lineupViewModel: LineupViewModel by activityViewModels()
+    private var formation: Int = 0
 
     val playerList = listOf(
         Players(R.drawable.felix,1),
@@ -52,7 +53,7 @@ class PlayersFragment : Fragment(), RecyclerViewClickListener{
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         val fragmentBinding = FragmentPlayersBinding.inflate(inflater, container, false)
         binding = fragmentBinding
@@ -66,6 +67,7 @@ class PlayersFragment : Fragment(), RecyclerViewClickListener{
             "REQUEST_KEY"
         ){_, bundle ->
             val id = bundle.getInt("KEY")
+            formation = bundle.getInt("KEY2")
             lineupViewModel.setPositionId(id)
         }
 
@@ -81,7 +83,10 @@ class PlayersFragment : Fragment(), RecyclerViewClickListener{
     override fun onRecyclerViewItemClick(view: View, Item: Players) {
         lineupViewModel.setPlayerId(Item.id)
         lineupViewModel.select()
-        findNavController().navigate(R.id.action_playersFragment_to_f442Fragment)
+        when(formation){
+            442 -> { findNavController().navigate(R.id.action_playersFragment_to_f442Fragment) }
+            3142 -> { findNavController().navigate(R.id.action_playersFragment_to_f3142Fragment)}
+        }
     }
 
     override fun onDestroyView() {
