@@ -72,13 +72,19 @@ class ImageFragment : Fragment() {
         }
 
         binding?.pagerBackBtn?.setOnClickListener {
-            bindingx?.viewpager2?.visibility = View.INVISIBLE
+            refreshCurrentFragment()
         }
     }
     override fun onDestroyView() {
         super.onDestroyView()
         Log.d("Tag", "IAF onDestroyView:"+ lifecycle.currentState)
         binding = null
+    }
+
+    private fun refreshCurrentFragment(){
+        val id = findNavController().currentDestination?.id
+        findNavController().popBackStack(id!!, true)
+        findNavController().navigate(id)
     }
 
     companion object {
