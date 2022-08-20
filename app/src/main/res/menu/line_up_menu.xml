@@ -7,6 +7,7 @@
         android:title="@string/formation"
         android:icon="@drawable/ic_baseline_dialpad_24"
         android:iconTint="@color/white"
+
         app:showAsAction="ifRoom"/>
 
     <item

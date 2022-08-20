@@ -13,7 +13,6 @@ import androidx.fragment.app.setFragmentResult
 import androidx.navigation.fragment.findNavController
 import com.example.atletico.R
 import com.example.atletico.databinding.FragmentF442Binding
-import com.example.atletico.databinding.FragmentLineUpBinding
 
 class F442Fragment : Fragment() {
     private val lineupviewModel: LineupViewModel by activityViewModels()
@@ -36,7 +35,7 @@ class F442Fragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding?.lineupToolbar?.inflateMenu(R.menu.line_up_top_bar)
+        binding?.lineupToolbar?.inflateMenu(R.menu.line_up_menu)
 
         binding?.lineupToolbar?.setOnMenuItemClickListener {
             when(it.itemId){

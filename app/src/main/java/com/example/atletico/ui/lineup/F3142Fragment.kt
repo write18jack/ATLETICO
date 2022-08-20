@@ -36,6 +36,8 @@ class F3142Fragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding?.lineupToolbar?.inflateMenu(R.menu.line_up_menu)
+
         binding?.lineupToolbar?.setOnMenuItemClickListener {
             when(it.itemId) {
                 R.id.formation -> {
