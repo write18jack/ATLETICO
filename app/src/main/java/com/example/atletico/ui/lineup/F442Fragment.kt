@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.setFragmentResult
@@ -41,7 +42,10 @@ class F442Fragment : Fragment() {
             when(it.itemId){
                 R.id.formation -> {
                     Log.d("Tag", "LineupF: ${it.itemId}")
-                        //binding1?.viewpager2?.adapter = MyAdapter(this)
+                    val dialog = ForDialog(
+                        {selectedFormation(it)}
+                    )
+                    dialog.show(parentFragmentManager, "formation_dialog")
                     true
                 }
                 R.id.players -> {
@@ -56,6 +60,13 @@ class F442Fragment : Fragment() {
     fun goToPlayerList(position: Int){
         setFragmentResult("REQUEST_KEY", bundleOf("KEY" to position, "KEY2" to 442))
         findNavController().navigate(R.id.action_f442Fragment_to_playersFragment)
+    }
+
+    private fun selectedFormation(item:String){
+        when(item){
+            "3-1-4-2"->{findNavController().navigate(R.id.action_f442Fragment_to_f3142Fragment)}
+            "4-4-2"->{Toast.makeText(context, "here!", Toast.LENGTH_LONG).show()}
+        }
     }
 
     override fun onDestroyView() {

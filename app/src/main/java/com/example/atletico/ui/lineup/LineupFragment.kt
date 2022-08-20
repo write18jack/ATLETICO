@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
-import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.atletico.R
 import com.example.atletico.databinding.FragmentLineUpBinding
 
@@ -34,7 +33,12 @@ class LineupFragment : Fragment() {
             when(it.itemId){
                 R.id.formation -> {
                     Log.d("Tag", "LineupF: ${it.itemId}")
-                    binding?.viewpager2?.adapter = MyAdapter(this)
+                    val dialog = ForDialog(
+                        {selectedFormation(it)}
+//                        "Cancel",
+//                        Toast.makeText(context, "Canceled", Toast.LENGTH_LONG).show()
+                    )
+                    dialog.show(parentFragmentManager, "formation_dialog")
                     true
                 }
                 R.id.players -> {
@@ -45,23 +49,33 @@ class LineupFragment : Fragment() {
             }
         }
     }
-    private inner class MyAdapter(
-        fa: LineupFragment
-    ): FragmentStateAdapter(fa) {
+//    private inner class MyAdapter(
+//        fa: LineupFragment
+//    ): FragmentStateAdapter(fa) {
+//
+//        val formationList = listOf(
+//            Pager("4-4-2", R.drawable.f442),
+//            Pager("3-1-4-2", R.drawable.f3142)
+//        )
+//
+//        override fun getItemCount(): Int = formationList.size
+//
+//        //スライドでimageを表示する
+//        override fun createFragment(position: Int): Fragment {
+//            return ImageFragment.newInstance(formationList[position])
+//        }
+//    }
+//    fun showAlert(){
+//        val newFragment = ForDialog()
+//        newFragment.show(parentFragmentManager, "formation")
+//    }
 
-        val formationList = listOf(
-            Pager("4-4-2", R.drawable.f442),
-            Pager("3-1-4-2", R.drawable.f3142)
-        )
-
-        override fun getItemCount(): Int = formationList.size
-
-        //スライドでimageを表示する
-        override fun createFragment(position: Int): Fragment {
-            return ImageFragment.newInstance(formationList[position])
+    private fun selectedFormation(item: String){
+        when(item){
+            "3-1-4-2"->{findNavController().navigate(R.id.action_lineupFragment_to_f3142Fragment)}
+            "4-4-2"->{findNavController().navigate(R.id.action_lineupFragment_to_f442Fragment)}
         }
     }
-
     override fun onDestroyView() {
         super.onDestroyView()
         binding = null
