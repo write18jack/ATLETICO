@@ -162,7 +162,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toTopOf="@id/gk"
                 android:layout_marginStart="40dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="40dp"
                 app:strokeWidth="15dp"
                 app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.ConerSize"
                 android:stateListAnimator="@animator/button_state_list_anim_material"/>
@@ -170,6 +170,7 @@
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/cb"
                 android:background="@drawable/no_player"
+                android:iconId="@{viewModel.cb}"
                 android:onClick="@{()-> fragment3142.goToPlayerList(12)}"
                 android:layout_width="80dp"
                 android:layout_height="90dp"
@@ -184,6 +185,7 @@
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/rcb"
                 android:background="@drawable/no_player"
+                android:iconId="@{viewModel.rcb}"
                 android:onClick="@{()-> fragment3142.goToPlayerList(13)}"
                 android:layout_width="80dp"
                 android:layout_height="90dp"
@@ -191,7 +193,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toTopOf="@id/gk"
                 android:layout_marginEnd="40dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="40dp"
                 app:strokeWidth="15dp"
                 app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.ConerSize"
                 android:stateListAnimator="@animator/button_state_list_anim_material"/>
@@ -199,6 +201,7 @@
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/gk"
                 android:background="@drawable/no_player"
+                android:iconId="@{viewModel.gk}"
                 android:onClick="@{()-> fragment3142.goToPlayerList(15)}"
                 android:layout_width="80dp"
                 android:layout_height="90dp"

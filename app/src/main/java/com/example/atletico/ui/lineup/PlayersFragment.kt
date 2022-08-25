@@ -42,7 +42,7 @@ class PlayersFragment : Fragment(), RecyclerViewClickListener{
         Players(R.drawable.lodi,17),
         Players(R.drawable.manu,18),
         Players(R.drawable.reinildo,19),
-        Players(R.drawable.wass,20),
+        Players(R.drawable.molina,20),
         Players(R.drawable.gimenez,21),
         Players(R.drawable.savic,22),
         Players(R.drawable.felipe,23),

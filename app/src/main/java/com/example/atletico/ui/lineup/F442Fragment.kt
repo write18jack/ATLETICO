@@ -65,6 +65,8 @@ class F442Fragment : Fragment() {
         when(item){
             "3-1-4-2"->{findNavController().navigate(R.id.action_f442Fragment_to_f3142Fragment)}
             "4-4-2"->{Toast.makeText(context, "here!", Toast.LENGTH_LONG).show()}
+            "5-3-2"->{findNavController().navigate(R.id.action_f442Fragment_to_f532Fragment)}
+            "5-4-1"->{findNavController().navigate(R.id.action_f442Fragment_to_f541Fragment)}
         }
     }
 

@@ -23,7 +23,6 @@ class LineupFragment : Fragment() {
 
         return fragmentBinding.root
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -49,31 +48,12 @@ class LineupFragment : Fragment() {
             }
         }
     }
-//    private inner class MyAdapter(
-//        fa: LineupFragment
-//    ): FragmentStateAdapter(fa) {
-//
-//        val formationList = listOf(
-//            Pager("4-4-2", R.drawable.f442),
-//            Pager("3-1-4-2", R.drawable.f3142)
-//        )
-//
-//        override fun getItemCount(): Int = formationList.size
-//
-//        //スライドでimageを表示する
-//        override fun createFragment(position: Int): Fragment {
-//            return ImageFragment.newInstance(formationList[position])
-//        }
-//    }
-//    fun showAlert(){
-//        val newFragment = ForDialog()
-//        newFragment.show(parentFragmentManager, "formation")
-//    }
-
     private fun selectedFormation(item: String){
         when(item){
             "3-1-4-2"->{findNavController().navigate(R.id.action_lineupFragment_to_f3142Fragment)}
             "4-4-2"->{findNavController().navigate(R.id.action_lineupFragment_to_f442Fragment)}
+            "5-3-2"->{findNavController().navigate(R.id.action_lineupFragment_to_f532Fragment)}
+            "5-4-1"->{findNavController().navigate(R.id.action_lineupFragment_to_f541Fragment)}
         }
     }
     override fun onDestroyView() {
