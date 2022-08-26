@@ -58,7 +58,7 @@ class F532Fragment : Fragment() {
     }
 
     fun goToPlayerList(position: Int){
-        setFragmentResult("REQUEST_KEY", bundleOf("KEY" to position, "KEY2" to 442))
+        setFragmentResult("REQUEST_KEY", bundleOf("KEY" to position, "KEY2" to 532))
         findNavController().navigate(R.id.action_f532Fragment_to_playersFragment)
     }
 

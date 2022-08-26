@@ -84,8 +84,10 @@ class PlayersFragment : Fragment(), RecyclerViewClickListener{
         lineupViewModel.setPlayerId(Item.id)
         lineupViewModel.select()
         when(formation){
-            442 -> { findNavController().navigate(R.id.action_playersFragment_to_f442Fragment) }
-            3142 -> { findNavController().navigate(R.id.action_playersFragment_to_f3142Fragment)}
+            3142 -> {findNavController().navigate(R.id.action_playersFragment_to_f3142Fragment)}
+            442 -> {findNavController().navigate(R.id.action_playersFragment_to_f442Fragment)}
+            532 -> {findNavController().navigate(R.id.action_playersFragment_to_f532Fragment)}
+            541 -> {findNavController().navigate(R.id.action_playersFragment_to_f541Fragment)}
         }
     }
 
