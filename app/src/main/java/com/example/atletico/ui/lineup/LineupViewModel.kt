@@ -1,11 +1,11 @@
 package com.example.atletico.ui.lineup
 
-import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
+import kotlinx.coroutines.launch
 
-class LineupViewModel : ViewModel() {
+class LineupViewModel(private val itemDao: ItemDao) : ViewModel() {
+
+    val allItems: LiveData<List<Entity>> = itemDao.getItems().asLiveData()
 
     private var positionId: Int = 0
     private var playerId: Int = 0
@@ -51,21 +51,123 @@ class LineupViewModel : ViewModel() {
 
     fun select() {
         when (positionId) {
-            1->{ st.value = playerId }
-            2->{ lst.value = playerId }
-            3->{ rst.value = playerId }
-            4->{ lm.value = playerId }
-            5->{ lcm.value = playerId }
-            6->{ cm.value = playerId }
-            7->{cdm.value = playerId }
-            8->{ rcm.value = playerId }
-            9->{ rm.value = playerId }
-            10->{ lfb.value = playerId }
-            11->{ lcb.value = playerId }
-            12->{ cb.value = playerId }
-            13->{ rcb.value = playerId }
-            14->{ rfb.value = playerId }
-            15->{ gk.value = playerId }
+            1 -> {
+                st.value = playerId
+            }
+            2 -> {
+                lst.value = playerId
+            }
+            3 -> {
+                rst.value = playerId
+            }
+            4 -> {
+                lm.value = playerId
+            }
+            5 -> {
+                lcm.value = playerId
+            }
+            6 -> {
+                cm.value = playerId
+            }
+            7 -> {
+                cdm.value = playerId
+            }
+            8 -> {
+                rcm.value = playerId
+            }
+            9 -> {
+                rm.value = playerId
+            }
+            10 -> {
+                lfb.value = playerId
+            }
+            11 -> {
+                lcb.value = playerId
+            }
+            12 -> {
+                cb.value = playerId
+            }
+            13 -> {
+                rcb.value = playerId
+            }
+            14 -> {
+                rfb.value = playerId
+            }
+            15 -> {
+                gk.value = playerId
+            }
         }
+    }
+
+    fun updateItem(
+        itemId: Int,
+        itemPosition: Int,
+        itemPlayer: Int
+    ) {
+        val updatedItem = getUpdatedItemEntry(itemId, itemPosition, itemPlayer)
+        updateItem(updatedItem)
+    }
+
+    private fun updateItem(item: Entity) {
+        viewModelScope.launch {
+            itemDao.update(item)
+        }
+    }
+
+    fun addNewItem(itemPosition: Int, itemPlayer: Int) {
+        val newItem = getNewItemEntry(itemPosition, itemPlayer)
+        insertItem(newItem)
+    }
+
+    private fun insertItem(item: Entity) {
+        viewModelScope.launch {
+            itemDao.insert(item)
+        }
+    }
+
+    fun deleteItem(item: Entity) {
+        viewModelScope.launch {
+            itemDao.delete(item)
+        }
+    }
+
+    fun retrieveItem(id: Int): LiveData<Entity> {
+        return itemDao.getItem(id).asLiveData()
+    }
+
+    fun isEntryValid(itemPosition: Int, itemPlayer: Int): Boolean {
+        if (itemPosition.toString().isBlank() || itemPlayer.toString().isBlank()) {
+            return false
+        }
+        return true
+    }
+
+    private fun getNewItemEntry(itemPosition: Int, itemPlayer: Int): Entity {
+        return Entity(
+            itemPosition = itemPosition,
+            itemPlayer = itemPlayer
+        )
+    }
+
+    private fun getUpdatedItemEntry(
+        itemId: Int,
+        itemPosition: Int,
+        itemPlayer: Int
+    ): Entity {
+        return Entity(
+            id = itemId,
+            itemPosition = itemPosition,
+            itemPlayer = itemPlayer
+        )
+    }
+}
+
+class LineupViewModelFactory(private val itemDao: ItemDao) : ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(LineupViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST")
+            return SaveLineUpViewModel(itemDao) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
     }
 }

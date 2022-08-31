@@ -1,11 +1,14 @@
 package com.example.atletico.ui.lineup
 
+import android.content.ClipData
+import android.content.Context.INPUT_METHOD_SERVICE
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.setFragmentResultListener
@@ -19,8 +22,14 @@ import kotlinx.android.synthetic.main.fragment_players.*
 class PlayersFragment : Fragment(), RecyclerViewClickListener{
 
     private var binding: FragmentPlayersBinding? = null
-    private val lineupViewModel: LineupViewModel by activityViewModels()
+    private val lineupViewModel: LineupViewModel by activityViewModels{
+        LineupViewModelFactory(
+            (activity?.application as LineupApplication).database
+                .itemDao()
+        )
+    }
     private var formation: Int = 0
+    private var idx:Int = 16
 
     val playerList = listOf(
         Players(R.drawable.felix,1),
@@ -66,7 +75,7 @@ class PlayersFragment : Fragment(), RecyclerViewClickListener{
         setFragmentResultListener(
             "REQUEST_KEY"
         ){_, bundle ->
-            val id = bundle.getInt("KEY")
+            idx = bundle.getInt("KEY")
             formation = bundle.getInt("KEY2")
             lineupViewModel.setPositionId(id)
         }
@@ -83,6 +92,7 @@ class PlayersFragment : Fragment(), RecyclerViewClickListener{
     override fun onRecyclerViewItemClick(view: View, Item: Players) {
         lineupViewModel.setPlayerId(Item.id)
         lineupViewModel.select()
+        lineupViewModel.addNewItem(idx, Item.id)
         when(formation){
             3142 -> {findNavController().navigate(R.id.action_playersFragment_to_f3142Fragment)}
             442 -> {findNavController().navigate(R.id.action_playersFragment_to_f442Fragment)}
@@ -91,8 +101,23 @@ class PlayersFragment : Fragment(), RecyclerViewClickListener{
         }
     }
 
+    private fun addNewItem(){
+        if(isEntryValid()){
+        }
+    }
+
+    private fun isEntryValid():Boolean{
+        return lineupViewModel.isEntryValid(
+            idx,
+
+        )
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
+        val inputMethodManager = requireActivity().getSystemService(INPUT_METHOD_SERVICE) as
+                InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(requireActivity().currentFocus?.windowToken, 0)
         binding = null
     }
 }

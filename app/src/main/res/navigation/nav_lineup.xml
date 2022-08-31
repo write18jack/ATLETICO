@@ -53,6 +53,9 @@
         <action
             android:id="@+id/action_playersFragment_to_f532Fragment"
             app:destination="@id/f532Fragment" />
+        <action
+            android:id="@+id/action_playersFragment_to_f541Fragment"
+            app:destination="@id/f541Fragment" />
     </fragment>
 
     <fragment

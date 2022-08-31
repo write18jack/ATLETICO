@@ -15,8 +15,14 @@ import com.example.atletico.R
 import com.example.atletico.databinding.FragmentF442Binding
 
 class F442Fragment : Fragment() {
-    private val lineupviewModel: LineupViewModel by activityViewModels()
+    private val lineupviewModel: LineupViewModel by activityViewModels{
+        SaveLineupViewModelFactory(
+            (activity?.application as SaveLineUpApplication).database
+                .itemDao()
+        )
+    }
     private var binding: FragmentF442Binding? = null
+    lateinit var item: Entity
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
