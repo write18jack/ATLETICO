@@ -101,17 +101,17 @@ class PlayersFragment : Fragment(), RecyclerViewClickListener{
         }
     }
 
-    private fun addNewItem(){
-        if(isEntryValid()){
-        }
-    }
-
-    private fun isEntryValid():Boolean{
-        return lineupViewModel.isEntryValid(
-            idx,
-
-        )
-    }
+//    private fun addNewItem(){
+//        if(isEntryValid()){
+//        }
+//    }
+//
+//    private fun isEntryValid():Boolean{
+//        return lineupViewModel.isEntryValid(
+//            idx,
+//
+//        )
+//    }
 
     override fun onDestroyView() {
         super.onDestroyView()

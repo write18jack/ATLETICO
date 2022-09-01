@@ -16,7 +16,7 @@ import com.example.atletico.databinding.FragmentF442Binding
 
 class F442Fragment : Fragment() {
     private val lineupviewModel: LineupViewModel by activityViewModels{
-        SaveLineupViewModelFactory(
+        LineupViewModelFactory(
             (activity?.application as SaveLineUpApplication).database
                 .itemDao()
         )

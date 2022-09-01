@@ -166,7 +166,7 @@ class LineupViewModelFactory(private val itemDao: ItemDao) : ViewModelProvider.F
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(LineupViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return SaveLineUpViewModel(itemDao) as T
+            return LineupViewModel(itemDao) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
