@@ -1,28 +1,35 @@
 package com.example.atletico.ui.lineup
 
+import android.app.AlertDialog
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
-import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.setFragmentResult
+import androidx.lifecycle.coroutineScope
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.atletico.R
 import com.example.atletico.databinding.FragmentF442Binding
+import kotlinx.coroutines.launch
 
 class F442Fragment : Fragment() {
-    private val lineupviewModel: LineupViewModel by activityViewModels{
+    private val lineupViewModel: LineupViewModel by activityViewModels {
         LineupViewModelFactory(
             (activity?.application as SaveLineUpApplication).database
                 .itemDao()
         )
     }
+
     private var binding: FragmentF442Binding? = null
-    lateinit var item: Entity
+    lateinit var item: EntityX
+
+    private val navigationArgs: F442FragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,23 +40,22 @@ class F442Fragment : Fragment() {
 
         binding?.apply {
             lifecycleOwner = viewLifecycleOwner
-            viewModel = lineupviewModel
+            viewModel = lineupViewModel
             fragmentf442 = this@F442Fragment
         }
+        Log.d("TEST", "F442 player: ${lineupViewModel.playerId_check}")
         return fragmentBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding?.lineupToolbar?.inflateMenu(R.menu.line_up_menu)
+        binding?.lineupToolbar?.inflateMenu(R.menu.line_up_menu2)
 
-        binding?.lineupToolbar?.setOnMenuItemClickListener {
-            when(it.itemId){
+        binding?.lineupToolbar?.setOnMenuItemClickListener { it ->
+            when (it.itemId) {
                 R.id.formation -> {
                     Log.d("Tag", "LineupF: ${it.itemId}")
-                    val dialog = ForDialog(
-                        {selectedFormation(it)}
-                    )
+                    val dialog = ForDialog { selectedFormation(it) }
                     dialog.show(parentFragmentManager, "formation_dialog")
                     true
                 }
@@ -57,27 +63,72 @@ class F442Fragment : Fragment() {
                     findNavController().navigate(R.id.action_f442Fragment_to_playersFragment)
                     true
                 }
+                R.id.save -> {
+                    AlertDialog.Builder(requireActivity())
+                        .setTitle("Do you save?")
+                        .setPositiveButton("OK") { _, _ ->
+                            checkMap()
+                        }
+                        .setNegativeButton("CANCEL") { _, _ ->
+                            Toast.makeText(requireContext(), "cancel", Toast.LENGTH_LONG).show()
+                        }
+                        .show()
+                    true
+                }
                 else -> false
+            }
+        }
+
+        lifecycle.coroutineScope.launch{
+            lineupViewModel.allItems().collect(){
+                for (i in it){
+                    lineupViewModel.setPositionId(i.itemPosition)
+                    lineupViewModel.setPlayerId(i.itemPlayer)
+                    lineupViewModel.select()
+                }
             }
         }
     }
 
-    fun goToPlayerList(position: Int){
-        setFragmentResult("REQUEST_KEY", bundleOf("KEY" to position, "KEY2" to 442))
-        findNavController().navigate(R.id.action_f442Fragment_to_playersFragment)
+    fun goToPlayerList(position: Int) {
+        lineupViewModel.setPositionId(position)
+
+        val action = F442FragmentDirections.actionF442FragmentToPlayersFragment(
+            position, 442
+        )
+        this.findNavController().navigate(action)
     }
 
-    private fun selectedFormation(item:String){
-        when(item){
-            "3-1-4-2"->{findNavController().navigate(R.id.action_f442Fragment_to_f3142Fragment)}
-            "4-4-2"->{Toast.makeText(context, "here!", Toast.LENGTH_LONG).show()}
-            "5-3-2"->{findNavController().navigate(R.id.action_f442Fragment_to_f532Fragment)}
-            "5-4-1"->{findNavController().navigate(R.id.action_f442Fragment_to_f541Fragment)}
+    private fun selectedFormation(item: String) {
+        when (item) {
+            "3-1-4-2" -> {
+                findNavController().navigate(R.id.action_f442Fragment_to_f3142Fragment)
+            }
+            "4-4-2" -> {
+                Toast.makeText(context, "here!", Toast.LENGTH_LONG).show()
+            }
+            "5-3-2" -> {
+                findNavController().navigate(R.id.action_f442Fragment_to_f532Fragment)
+            }
+            "5-4-1" -> {
+                findNavController().navigate(R.id.action_f442Fragment_to_f541Fragment)
+            }
+        }
+    }
+
+    private fun checkMap() {
+        if (lineupViewModel.mapPositionPlayer.count() == 11) {
+
+        } else {
+            Toast.makeText(requireContext(), "Not enough players!", Toast.LENGTH_LONG).show()
         }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
+        val inputMethodManager = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as
+                InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(requireActivity().currentFocus?.windowToken, 0)
         binding = null
     }
 }

@@ -1,23 +1,25 @@
 package com.example.atletico.ui.lineup
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface ItemDao {
 
-    @Query("SELECT * from entity ORDER BY position ASC")
-    fun getItems(): Flow<List<Entity>>
+    @Query("SELECT * from EntityX ORDER BY position ASC")
+    fun getItems(): Flow<List<EntityX>>
 
-    @Query("SELECT * from entity WHERE id = :id")
-    fun getItem(id:Int): Flow<Entity>
+    // 全てのアイテム取得 LiveData
+    @Query("SELECT * FROM EntityX")
+    fun selectAllWithLiveData(): LiveData<List<EntityX>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insert(item: Entity)
+    suspend fun insert(item: EntityX)
 
     @Update
-    suspend fun update(item: Entity)
+    suspend fun update(item: EntityX)
 
     @Delete
-    suspend fun delete(item:Entity)
+    suspend fun delete(item: EntityX)
 }

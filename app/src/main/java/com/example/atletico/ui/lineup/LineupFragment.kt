@@ -6,13 +6,21 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.atletico.R
 import com.example.atletico.databinding.FragmentLineUpBinding
 
 class LineupFragment : Fragment() {
+    private val lineupViewModel: LineupViewModel by activityViewModels{
+        LineupViewModelFactory(
+            (activity?.application as SaveLineUpApplication).database
+                .itemDao()
+        )
+    }
 
     private var binding: FragmentLineUpBinding? = null
+    lateinit var item: EntityX
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,11 +40,7 @@ class LineupFragment : Fragment() {
             when(it.itemId){
                 R.id.formation -> {
                     Log.d("Tag", "LineupF: ${it.itemId}")
-                    val dialog = ForDialog(
-                        {selectedFormation(it)}
-//                        "Cancel",
-//                        Toast.makeText(context, "Canceled", Toast.LENGTH_LONG).show()
-                    )
+                    val dialog = ForDialog { it1 -> selectedFormation(it1) }
                     dialog.show(parentFragmentManager, "formation_dialog")
                     true
                 }
@@ -48,6 +52,7 @@ class LineupFragment : Fragment() {
             }
         }
     }
+
     private fun selectedFormation(item: String){
         when(item){
             "3-1-4-2"->{findNavController().navigate(R.id.action_lineupFragment_to_f3142Fragment)}
