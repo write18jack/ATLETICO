@@ -15,4 +15,10 @@
         android:icon="@drawable/substitute"
         android:iconTint="@color/white"
         app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/save"
+        android:title="@string/save"
+        android:icon="@drawable/ic_baseline_save_24"
+        app:showAsAction="ifRoom"/>
 </menu>

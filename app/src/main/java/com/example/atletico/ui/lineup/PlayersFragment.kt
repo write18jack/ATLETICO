@@ -71,8 +71,6 @@ class PlayersFragment : Fragment(), RecyclerViewClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.d("TEST", "PF position: ${lineupViewModel.positionId_check}")
-        Log.d("TEST", "PF player: ${lineupViewModel.playerId_check}")
 
         binding?.apply {
             lifecycleOwner = viewLifecycleOwner
@@ -84,10 +82,10 @@ class PlayersFragment : Fragment(), RecyclerViewClickListener {
     }
 
     override fun onRecyclerViewItemClick(view: View, Item: Players) {
-        Log.d("TEST", "PF players: $Item")
         if (lineupViewModel.mapPositionPlayer.containsValue(Item.id)) {
             Toast.makeText(requireContext(), "Duplicate players!", Toast.LENGTH_LONG).show()
         } else {
+            Log.d("XXX", "PF playerID: $")
             lineupViewModel.setPlayerId(Item.id)
             lineupViewModel.select()
         }

@@ -43,7 +43,6 @@ class F442Fragment : Fragment() {
             viewModel = lineupViewModel
             fragmentf442 = this@F442Fragment
         }
-        Log.d("TEST", "F442 player: ${lineupViewModel.playerId_check}")
         return fragmentBinding.root
     }
 
@@ -54,7 +53,6 @@ class F442Fragment : Fragment() {
         binding?.lineupToolbar?.setOnMenuItemClickListener { it ->
             when (it.itemId) {
                 R.id.formation -> {
-                    Log.d("Tag", "LineupF: ${it.itemId}")
                     val dialog = ForDialog { selectedFormation(it) }
                     dialog.show(parentFragmentManager, "formation_dialog")
                     true
@@ -78,16 +76,18 @@ class F442Fragment : Fragment() {
                 else -> false
             }
         }
-
-        lifecycle.coroutineScope.launch{
-            lineupViewModel.allItems().collect(){
-                for (i in it){
-                    lineupViewModel.setPositionId(i.itemPosition)
-                    lineupViewModel.setPlayerId(i.itemPlayer)
-                    lineupViewModel.select()
-                }
-            }
-        }
+        /*
+        * flow migrate to F442 */
+//        lifecycle.coroutineScope.launch{
+//            lineupViewModel.allItems().collect(){
+//                Log.d("XXX", "F442 List: $it")
+//                for (i in it){
+//                    lineupViewModel.setPositionId(i.itemPosition)
+//                    lineupViewModel.setPlayerId(i.itemPlayer)
+//                    lineupViewModel.select()
+//                }
+//            }
+//        }
     }
 
     fun goToPlayerList(position: Int) {

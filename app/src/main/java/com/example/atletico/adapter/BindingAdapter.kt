@@ -1,7 +1,6 @@
 package com.example.atletico.adapter
 
 import android.util.Log
-import android.widget.ImageButton
 import androidx.databinding.BindingAdapter
 import com.example.atletico.R
 
@@ -12,7 +11,7 @@ object BindingAdapter {
     fun setIconBy(view: com.google.android.material.imageview.ShapeableImageView, icon: Int) {
         Log.d("TAG", "BindingAdapter iconId: $icon")
 
-        val IconId = when (icon) {
+        val iconId = when (icon) {
             1-> R.drawable.felix
             2->R.drawable.correa
             3->R.drawable.griezmann
@@ -32,7 +31,7 @@ object BindingAdapter {
             17->R.drawable.lodi
             18->R.drawable.manu2
             19->R.drawable.reinildo
-            20->R.drawable.wass
+            20->R.drawable.molina
             21->R.drawable.gimenez
             22->R.drawable.savic
             23->R.drawable.felipe
@@ -40,7 +39,7 @@ object BindingAdapter {
             25->R.drawable.obrak
             else -> null
         }
-        IconId?.let {
+        iconId?.let {
             view.setBackgroundResource(it)
         } ?: view.setImageDrawable(null)
     }
@@ -48,7 +47,7 @@ object BindingAdapter {
     @JvmStatic
     @BindingAdapter("android:players")
     fun setPlayerBy(view:com.google.android.material.imageview.ShapeableImageView, Image: Int) {
-        Log.d("TAG", "BindingAdapter iconId: $Image")
+        Log.d("TAG", "BindingAdapter Image: $Image")
 
         Image.let {
             view.setBackgroundResource(it)

@@ -7,9 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.coroutineScope
 import androidx.navigation.fragment.findNavController
 import com.example.atletico.R
 import com.example.atletico.databinding.FragmentLineUpBinding
+import kotlinx.coroutines.launch
 
 class LineupFragment : Fragment() {
     private val lineupViewModel: LineupViewModel by activityViewModels{
@@ -49,6 +51,18 @@ class LineupFragment : Fragment() {
                     true
                 }
                 else -> false
+            }
+        }
+        /*
+        * flow migrate to F442 */
+        lifecycle.coroutineScope.launch{
+            lineupViewModel.allItems().collect(){
+                Log.d("XXX", "F442 List: $it")
+                for (i in it){
+                    lineupViewModel.setPositionId(i.itemPosition)
+                    lineupViewModel.setPlayerId(i.itemPlayer)
+                    lineupViewModel.select()
+                }
             }
         }
     }

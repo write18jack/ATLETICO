@@ -35,11 +35,13 @@
     <fragment
         android:id="@+id/playersFragment"
         android:name="com.example.atletico.ui.lineup.PlayersFragment"
-        android:label="PlayersFragment" >
+        android:label="PlayersFragment"
+        tools:layout="@layout/fragment_players">
 
         <action
             android:id="@+id/action_playersFragment_to_lineupFragment"
             app:destination="@id/lineupFragment" />
+
         <action
             android:id="@+id/action_playersFragment_to_f442Fragment"
             app:destination="@id/f442Fragment"
@@ -56,6 +58,14 @@
         <action
             android:id="@+id/action_playersFragment_to_f541Fragment"
             app:destination="@id/f541Fragment" />
+        <argument
+            android:name="item_id"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <argument
+            android:name="formation_id"
+            app:argType="integer"
+            android:defaultValue="0" />
     </fragment>
 
     <fragment
@@ -63,9 +73,11 @@
         android:name="com.example.atletico.ui.lineup.F442Fragment"
         android:label="fragment_f442"
         tools:layout="@layout/fragment_f442" >
+
         <action
             android:id="@+id/action_f442Fragment_to_playersFragment"
             app:destination="@id/playersFragment" />
+
         <action
             android:id="@+id/action_f442Fragment_to_lineupFragment"
             app:destination="@id/lineupFragment"
@@ -80,6 +92,10 @@
         <action
             android:id="@+id/action_f442Fragment_to_f541Fragment"
             app:destination="@id/f541Fragment" />
+        <argument
+            android:name="Position_id"
+            app:argType="integer"
+            android:defaultValue="0" />
     </fragment>
 
     <fragment
