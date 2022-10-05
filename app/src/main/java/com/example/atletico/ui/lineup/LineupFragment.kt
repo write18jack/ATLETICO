@@ -6,14 +6,23 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.coroutineScope
 import androidx.navigation.fragment.findNavController
-import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.atletico.R
 import com.example.atletico.databinding.FragmentLineUpBinding
+import kotlinx.coroutines.launch
 
 class LineupFragment : Fragment() {
+    private val lineupViewModel: LineupViewModel by activityViewModels{
+        LineupViewModelFactory(
+            (activity?.application as SaveLineUpApplication).database
+                .itemDao()
+        )
+    }
 
     private var binding: FragmentLineUpBinding? = null
+    lateinit var item: EntityX
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,17 +33,17 @@ class LineupFragment : Fragment() {
 
         return fragmentBinding.root
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding?.lineupToolbar?.inflateMenu(R.menu.line_up_top_bar)
+        binding?.lineupToolbar?.inflateMenu(R.menu.line_up_menu)
 
         binding?.lineupToolbar?.setOnMenuItemClickListener {
             when(it.itemId){
                 R.id.formation -> {
                     Log.d("Tag", "LineupF: ${it.itemId}")
-                    binding?.viewpager2?.adapter = MyAdapter(this)
+                    val dialog = ForDialog { it1 -> selectedFormation(it1) }
+                    dialog.show(parentFragmentManager, "formation_dialog")
                     true
                 }
                 R.id.players -> {
@@ -44,24 +53,28 @@ class LineupFragment : Fragment() {
                 else -> false
             }
         }
-    }
-    private inner class MyAdapter(
-        fa: LineupFragment
-    ): FragmentStateAdapter(fa) {
-
-        val formationList = listOf(
-            Pager("4-4-2", R.drawable.f442),
-            Pager("3-1-4-2", R.drawable.f3142)
-        )
-
-        override fun getItemCount(): Int = formationList.size
-
-        //スライドでimageを表示する
-        override fun createFragment(position: Int): Fragment {
-            return ImageFragment.newInstance(formationList[position])
+        /*
+        * flow migrate to F442 */
+        lifecycle.coroutineScope.launch{
+            lineupViewModel.allItems().collect(){
+                Log.d("XXX", "F442 List: $it")
+                for (i in it){
+                    lineupViewModel.setPositionId(i.itemPosition)
+                    lineupViewModel.setPlayerId(i.itemPlayer)
+                    lineupViewModel.select()
+                }
+            }
         }
     }
 
+    private fun selectedFormation(item: String){
+        when(item){
+            "3-1-4-2"->{findNavController().navigate(R.id.action_lineupFragment_to_f3142Fragment)}
+            "4-4-2"->{findNavController().navigate(R.id.action_lineupFragment_to_f442Fragment)}
+            "5-3-2"->{findNavController().navigate(R.id.action_lineupFragment_to_f532Fragment)}
+            "5-4-1"->{findNavController().navigate(R.id.action_lineupFragment_to_f541Fragment)}
+        }
+    }
     override fun onDestroyView() {
         super.onDestroyView()
         binding = null

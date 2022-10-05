@@ -16,20 +16,32 @@
             app:destination="@id/playersFragment" />
         <action
             android:id="@+id/action_lineupFragment_to_f3142Fragment"
-            app:destination="@id/f3142Fragment" />
+            app:destination="@id/f3142Fragment"
+            app:popUpTo="@id/f3142Fragment" />
         <action
             android:id="@+id/action_lineupFragment_to_f442Fragment"
-            app:destination="@id/f442Fragment" />
+            app:destination="@id/f442Fragment"
+            app:popUpTo="@id/f442Fragment" />
+        <action
+            android:id="@+id/action_lineupFragment_to_f532Fragment"
+            app:destination="@id/f532Fragment"
+            app:popUpTo="@id/f532Fragment" />
+        <action
+            android:id="@+id/action_lineupFragment_to_f541Fragment"
+            app:destination="@id/f541Fragment"
+            app:popUpTo="@id/f541Fragment" />
     </fragment>
 
     <fragment
         android:id="@+id/playersFragment"
         android:name="com.example.atletico.ui.lineup.PlayersFragment"
-        android:label="PlayersFragment" >
+        android:label="PlayersFragment"
+        tools:layout="@layout/fragment_players">
 
         <action
             android:id="@+id/action_playersFragment_to_lineupFragment"
             app:destination="@id/lineupFragment" />
+
         <action
             android:id="@+id/action_playersFragment_to_f442Fragment"
             app:destination="@id/f442Fragment"
@@ -40,6 +52,20 @@
             app:destination="@id/f3142Fragment"
             app:popUpTo="@id/f3142Fragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_playersFragment_to_f532Fragment"
+            app:destination="@id/f532Fragment" />
+        <action
+            android:id="@+id/action_playersFragment_to_f541Fragment"
+            app:destination="@id/f541Fragment" />
+        <argument
+            android:name="item_id"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <argument
+            android:name="formation_id"
+            app:argType="integer"
+            android:defaultValue="0" />
     </fragment>
 
     <fragment
@@ -47,13 +73,29 @@
         android:name="com.example.atletico.ui.lineup.F442Fragment"
         android:label="fragment_f442"
         tools:layout="@layout/fragment_f442" >
+
         <action
             android:id="@+id/action_f442Fragment_to_playersFragment"
             app:destination="@id/playersFragment" />
+
         <action
             android:id="@+id/action_f442Fragment_to_lineupFragment"
             app:destination="@id/lineupFragment"
             />
+        <action
+            android:id="@+id/action_f442Fragment_to_f3142Fragment"
+            app:destination="@id/f3142Fragment"
+            app:popUpTo="@id/lineupFragment" />
+        <action
+            android:id="@+id/action_f442Fragment_to_f532Fragment"
+            app:destination="@id/f532Fragment" />
+        <action
+            android:id="@+id/action_f442Fragment_to_f541Fragment"
+            app:destination="@id/f541Fragment" />
+        <argument
+            android:name="Position_id"
+            app:argType="integer"
+            android:defaultValue="0" />
     </fragment>
 
     <fragment
@@ -69,5 +111,54 @@
             android:id="@+id/action_f3142Fragment_to_lineupFragment"
             app:destination="@id/lineupFragment"
             />
+        <action
+            android:id="@+id/action_f3142Fragment_to_f442Fragment"
+            app:destination="@id/f442Fragment"
+            app:popUpTo="@id/lineupFragment" />
+        <action
+            android:id="@+id/action_f3142Fragment_to_f532Fragment"
+            app:destination="@id/f532Fragment" />
+        <action
+            android:id="@+id/action_f3142Fragment_to_f532Fragment2"
+            app:destination="@id/f532Fragment" />
+        <action
+            android:id="@+id/action_f3142Fragment_to_f541Fragment"
+            app:destination="@id/f541Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/f532Fragment"
+        android:name="com.example.atletico.ui.lineup.F532Fragment"
+        android:label="fragment_f532"
+        tools:layout="@layout/fragment_f532" >
+        <action
+            android:id="@+id/action_f532Fragment_to_f442Fragment"
+            app:destination="@id/f442Fragment" />
+        <action
+            android:id="@+id/action_f532Fragment_to_f3142Fragment"
+            app:destination="@id/f3142Fragment" />
+        <action
+            android:id="@+id/action_f532Fragment_to_playersFragment"
+            app:destination="@id/playersFragment" />
+        <action
+            android:id="@+id/action_f532Fragment_to_f541Fragment"
+            app:destination="@id/f541Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/f541Fragment"
+        android:name="com.example.atletico.ui.lineup.F541Fragment"
+        android:label="fragment_f541"
+        tools:layout="@layout/fragment_f541" >
+        <action
+            android:id="@+id/action_f541Fragment_to_f532Fragment"
+            app:destination="@id/f532Fragment" />
+        <action
+            android:id="@+id/action_f541Fragment_to_playersFragment"
+            app:destination="@id/playersFragment" />
+        <action
+            android:id="@+id/action_f541Fragment_to_f442Fragment"
+            app:destination="@id/f442Fragment" />
+        <action
+            android:id="@+id/action_f541Fragment_to_f3142Fragment"
+            app:destination="@id/f3142Fragment" />
     </fragment>
 </navigation>
