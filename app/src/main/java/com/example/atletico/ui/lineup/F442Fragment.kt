@@ -65,7 +65,7 @@ class F442Fragment : Fragment() {
                     AlertDialog.Builder(requireActivity())
                         .setTitle("Do you save?")
                         .setPositiveButton("OK") { _, _ ->
-                            checkMap()
+
                         }
                         .setNegativeButton("CANCEL") { _, _ ->
                             Toast.makeText(requireContext(), "cancel", Toast.LENGTH_LONG).show()
@@ -76,18 +76,6 @@ class F442Fragment : Fragment() {
                 else -> false
             }
         }
-        /*
-        * flow migrate to F442 */
-//        lifecycle.coroutineScope.launch{
-//            lineupViewModel.allItems().collect(){
-//                Log.d("XXX", "F442 List: $it")
-//                for (i in it){
-//                    lineupViewModel.setPositionId(i.itemPosition)
-//                    lineupViewModel.setPlayerId(i.itemPlayer)
-//                    lineupViewModel.select()
-//                }
-//            }
-//        }
     }
 
     fun goToPlayerList(position: Int) {
@@ -116,13 +104,13 @@ class F442Fragment : Fragment() {
         }
     }
 
-    private fun checkMap() {
-        if (lineupViewModel.mapPositionPlayer.count() == 11) {
-
-        } else {
-            Toast.makeText(requireContext(), "Not enough players!", Toast.LENGTH_LONG).show()
-        }
-    }
+//    private fun checkMap() {
+//        if (lineupViewModel.mapPositionPlayer.count() == 11) {
+//
+//        } else {
+//            Toast.makeText(requireContext(), "Not enough players!", Toast.LENGTH_LONG).show()
+//        }
+//    }
 
     override fun onDestroyView() {
         super.onDestroyView()

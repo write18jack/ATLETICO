@@ -12,7 +12,7 @@ object BindingAdapter {
         Log.d("TAG", "BindingAdapter iconId: $icon")
 
         val iconId = when (icon) {
-            1-> R.drawable.felix
+            1->R.drawable.felix
             2->R.drawable.correa
             3->R.drawable.griezmann
             4->R.drawable.cunha

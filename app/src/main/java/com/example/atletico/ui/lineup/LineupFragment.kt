@@ -33,11 +33,11 @@ class LineupFragment : Fragment() {
 
         return fragmentBinding.root
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         binding?.lineupToolbar?.inflateMenu(R.menu.line_up_menu)
-
         binding?.lineupToolbar?.setOnMenuItemClickListener {
             when(it.itemId){
                 R.id.formation -> {
@@ -53,11 +53,13 @@ class LineupFragment : Fragment() {
                 else -> false
             }
         }
-        /*
-        * flow migrate to F442 */
+        setLineup()
+    }
+
+    private fun setLineup(){
         lifecycle.coroutineScope.launch{
             lineupViewModel.allItems().collect(){
-                Log.d("XXX", "F442 List: $it")
+                Log.d("XXX", "LineupF List: $it")
                 for (i in it){
                     lineupViewModel.setPositionId(i.itemPosition)
                     lineupViewModel.setPlayerId(i.itemPlayer)

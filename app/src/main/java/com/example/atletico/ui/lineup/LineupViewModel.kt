@@ -62,7 +62,7 @@ class LineupViewModel(private val itemDao: ItemDao) : ViewModel() {
         Log.d("TEST", "viewmodel: $mapPositionPlayer")
     }
 
-    fun setMap(){
+    private fun setMap(){
         if(mapPositionPlayer.containsKey(positionId)){
 
         }else{

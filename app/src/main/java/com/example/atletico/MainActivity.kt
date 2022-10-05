@@ -8,7 +8,6 @@ import com.example.atletico.ui.BottomNavManager
 class MainActivity : AppCompatActivity() {
 
     private var bottomNavManager: BottomNavManager? = null
-    private val binding: ActivityMainBinding? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
