@@ -61,6 +61,7 @@ class LineupFragment : Fragment() {
             lineupViewModel.allItems().collect(){
                 Log.d("XXX", "LineupF List: $it")
                 for (i in it){
+                    lineupViewModel.mapPositionPlayer[i.itemPosition]=i.itemPlayer
                     lineupViewModel.setPositionId(i.itemPosition)
                     lineupViewModel.setPlayerId(i.itemPlayer)
                     lineupViewModel.select()

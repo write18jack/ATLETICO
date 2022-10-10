@@ -104,14 +104,6 @@ class F442Fragment : Fragment() {
         }
     }
 
-//    private fun checkMap() {
-//        if (lineupViewModel.mapPositionPlayer.count() == 11) {
-//
-//        } else {
-//            Toast.makeText(requireContext(), "Not enough players!", Toast.LENGTH_LONG).show()
-//        }
-//    }
-
     override fun onDestroyView() {
         super.onDestroyView()
         val inputMethodManager = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as

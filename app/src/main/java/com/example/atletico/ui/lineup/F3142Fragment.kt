@@ -15,8 +15,14 @@ import com.example.atletico.databinding.FragmentF3142Binding
 
 class F3142Fragment : Fragment() {
 
-    private val lineupViewModel: LineupViewModel by activityViewModels()
+    private val lineupViewModel: LineupViewModel by activityViewModels{
+        LineupViewModelFactory(
+            (activity?.application as SaveLineUpApplication).database
+                .itemDao()
+        )
+    }
     private var binding: FragmentF3142Binding? = null
+    lateinit var item: EntityX
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,9 +47,7 @@ class F3142Fragment : Fragment() {
         binding?.lineupToolbar?.setOnMenuItemClickListener {
             when(it.itemId) {
                 R.id.formation -> {
-                    val dialog = ForDialog(
-                        { selectedFormation(it) }
-                    )
+                    val dialog = ForDialog { selectedFormation(it) }
                     dialog.show(parentFragmentManager, "formation_dialog")
                     true
                 }
@@ -56,8 +60,12 @@ class F3142Fragment : Fragment() {
     }
 
     fun goToPlayerList(position:Int){
-        setFragmentResult("REQUEST_KEY", bundleOf("KEY" to position, "KEY2" to 3142))
-        findNavController().navigate(R.id.action_f3142Fragment_to_playersFragment)
+        lineupViewModel.setPositionId(position)
+
+        val action = F3142FragmentDirections.actionF3142FragmentToPlayersFragment(
+            position, 3142
+        )
+        this.findNavController().navigate(action)
     }
     private fun selectedFormation(item:String){
         when(item){

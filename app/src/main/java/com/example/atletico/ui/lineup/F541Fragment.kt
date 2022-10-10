@@ -16,8 +16,14 @@ import com.example.atletico.databinding.FragmentF532Binding
 import com.example.atletico.databinding.FragmentF541Binding
 
 class F541Fragment : Fragment() {
-    private val lineupviewModel: LineupViewModel by activityViewModels()
+    private val lineupViewModel: LineupViewModel by activityViewModels{
+        LineupViewModelFactory(
+            (activity?.application as SaveLineUpApplication).database
+                .itemDao()
+        )
+    }
     private var binding: FragmentF541Binding? = null
+    lateinit var item: EntityX
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,7 +34,7 @@ class F541Fragment : Fragment() {
 
         binding?.apply {
             lifecycleOwner = viewLifecycleOwner
-            viewModel = lineupviewModel
+            viewModel = lineupViewModel
             fragment541 = this@F541Fragment
         }
         return fragmentBinding.root
@@ -42,9 +48,7 @@ class F541Fragment : Fragment() {
             when(it.itemId){
                 R.id.formation -> {
                     Log.d("Tag", "LineupF: ${it.itemId}")
-                    val dialog = ForDialog(
-                        {selectedFormation(it)}
-                    )
+                    val dialog = ForDialog { selectedFormation(it) }
                     dialog.show(parentFragmentManager, "formation_dialog")
                     true
                 }
@@ -58,8 +62,12 @@ class F541Fragment : Fragment() {
     }
 
     fun goToPlayerList(position: Int){
-        setFragmentResult("REQUEST_KEY", bundleOf("KEY" to position, "KEY2" to 541))
-        findNavController().navigate(R.id.action_f541Fragment_to_playersFragment)
+        lineupViewModel.setPositionId(position)
+
+        val action = F541FragmentDirections.actionF541FragmentToPlayersFragment(
+            position, 541
+        )
+        this.findNavController().navigate(action)
     }
 
     private fun selectedFormation(item:String){

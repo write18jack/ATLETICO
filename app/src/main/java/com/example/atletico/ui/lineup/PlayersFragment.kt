@@ -82,16 +82,39 @@ class PlayersFragment : Fragment(), RecyclerViewClickListener {
     }
 
     override fun onRecyclerViewItemClick(view: View, Item: Players) {
-        if (lineupViewModel.mapPositionPlayer.containsValue(Item.id)) {
+        //positionId
+        val positionIdInPF = navigationArgs.itemId
+        // When Position in Map
+        if (positionIdInPF in lineupViewModel.mapPositionPlayer) {
+            // When Player in Map
+            if (lineupViewModel.mapPositionPlayer.containsValue(Item.id)) {
+                //position of Koke is depaul
+                if (lineupViewModel.mapPositionPlayer[positionIdInPF] == Item.id) {
+                    lineupViewModel.updateItemx(positionIdInPF, Item.id)
+                } else {
+                    //Player ID set to change source
+                    val previousID: Int? = lineupViewModel.mapPositionPlayer[positionIdInPF]
+
+                    //Position ID to be modified
+                    val changePosition = lineupViewModel.mapPositionPlayer.filterValues {
+                        it == Item.id
+                    }.keys.elementAt(0)
+
+                    lineupViewModel.updateItemx(positionIdInPF, Item.id)
+                    if (previousID != null) {
+                        lineupViewModel.updateItemx(changePosition, previousID)
+                    }
+                }
+            } else {
+                lineupViewModel.updateItemx(positionIdInPF, Item.id)
+            }
+            //not position in Map
+        } else if (lineupViewModel.mapPositionPlayer.containsValue(Item.id)) {
             Toast.makeText(requireContext(), "Duplicate players!", Toast.LENGTH_LONG).show()
         } else {
-            Log.d("XXX", "PF playerID: $")
             lineupViewModel.setPlayerId(Item.id)
             lineupViewModel.select()
-        }
-        val positionIdInPF = navigationArgs.itemId //positionId
-        if (lineupViewModel.mapPositionPlayer.containsKey(positionIdInPF)) {
-            lineupViewModel.updateItemx(positionIdInPF, Item.id)
+            lineupViewModel.addNewItem()
         }
 
         when (navigationArgs.formationId) {

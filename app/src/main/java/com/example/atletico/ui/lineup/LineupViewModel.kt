@@ -2,9 +2,6 @@ package com.example.atletico.ui.lineup
 
 import android.util.Log
 import androidx.lifecycle.*
-import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
@@ -58,21 +55,8 @@ class LineupViewModel(private val itemDao: ItemDao) : ViewModel() {
     fun setPlayerId(pId: Int) {
         this.playerId = pId
         playerId_check = pId
-        setMap()
+
         Log.d("TEST", "viewmodel: $mapPositionPlayer")
-    }
-
-    private fun setMap(){
-        if(mapPositionPlayer.containsKey(positionId)){
-
-        }else{
-            mapPositionPlayer[positionId] = playerId //add to MutableMap
-            addNewItem()//insert
-        }
-    }
-
-    fun setLineupFromDB(positionDB: Int, playerDB: Int){
-
     }
 
     fun select() {
@@ -125,20 +109,14 @@ class LineupViewModel(private val itemDao: ItemDao) : ViewModel() {
         }
     }
 
-//    fun retrieveItem(id: Int) {
-//        viewModelScope.launch {
-//            itemDao.getItem(id).asLiveData()
-//        }
-//    }
-
     fun updateItemx(
-//        itemId: Int,
         itemPosition: Int,
         itemPlayer: Int
 
     ) {
-        val updatedItem = getUpdatedItemEntry(itemPosition, itemPlayer)
+        val updatedItem = getItemEntry(itemPosition, itemPlayer)
         updateItem(updatedItem)
+        mapPositionPlayer[positionId] = playerId
     }
 
     private fun updateItem(item: EntityX) {
@@ -147,16 +125,11 @@ class LineupViewModel(private val itemDao: ItemDao) : ViewModel() {
         }
     }
 
-//    fun addNewItem() {
-//        for (i in mapPositionPlayer){
-//            val newItem = getNewItemEntry(i.key, i.value)
-//            insertItem(newItem)
-//        }
-//    }
-fun addNewItem() {
-        val newItem = getNewItemEntry(positionId, playerId)
+    fun addNewItem() {
+        val newItem = getItemEntry(positionId, playerId)
         insertItem(newItem)
-}
+        mapPositionPlayer[positionId] = playerId
+      }
 
     private fun insertItem(item: EntityX) {
         viewModelScope.launch {
@@ -164,19 +137,20 @@ fun addNewItem() {
         }
     }
 
-    private fun getNewItemEntry(itemPosition: Int, itemPlayer: Int): EntityX {
+    private fun getItemEntry(itemPosition: Int, itemPlayer: Int): EntityX {
         return EntityX(
             itemPosition = itemPosition,
             itemPlayer = itemPlayer
         )
     }
 
-    private fun getUpdatedItemEntry(itemPosition: Int, itemPlayer: Int): EntityX {
-        return EntityX(
-            itemPosition = itemPosition,
-            itemPlayer = itemPlayer
-        )
-    }
+
+//    private fun getUpdatedItemEntry(itemPosition: Int, itemPlayer: Int): EntityX {
+//        return EntityX(
+//            itemPosition = itemPosition,
+//            itemPlayer = itemPlayer
+//        )
+//    }
 }
 
 class LineupViewModelFactory(private val itemDao: ItemDao) : ViewModelProvider.Factory {
