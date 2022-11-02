@@ -8,9 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.coroutineScope
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.atletico.R
 import com.example.atletico.databinding.FragmentLineUpBinding
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class LineupFragment : Fragment() {
@@ -58,8 +60,7 @@ class LineupFragment : Fragment() {
 
     private fun setLineup(){
         lifecycle.coroutineScope.launch{
-            lineupViewModel.allItems().collect(){
-                Log.d("XXX", "LineupF List: $it")
+            lineupViewModel.allItems().observe(viewLifecycleOwner){
                 for (i in it){
                     lineupViewModel.mapPositionPlayer[i.itemPosition]=i.itemPlayer
                     lineupViewModel.setPositionId(i.itemPosition)
