@@ -2,7 +2,10 @@ package com.example.atletico.adapter
 
 import android.util.Log
 import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.RecyclerView
 import com.example.atletico.R
+import com.example.atletico.ui.schedule.Display
+import com.example.atletico.ui.schedule.StandingsAdapter
 
 object BindingAdapter {
 
@@ -52,5 +55,13 @@ object BindingAdapter {
         Image.let {
             view.setBackgroundResource(it)
         }
+    }
+
+    @JvmStatic
+    @BindingAdapter("listData")
+    fun bindRecyclerView(recylerView: RecyclerView, data: List<Display>?){
+        val adapter = recylerView.adapter as StandingsAdapter
+        adapter.submitList(data)
+
     }
 }
