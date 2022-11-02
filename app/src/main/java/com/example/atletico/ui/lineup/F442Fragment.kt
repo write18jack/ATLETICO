@@ -21,8 +21,7 @@ import kotlinx.coroutines.launch
 class F442Fragment : Fragment() {
     private val lineupViewModel: LineupViewModel by activityViewModels {
         LineupViewModelFactory(
-            (activity?.application as SaveLineUpApplication).database
-                .itemDao()
+            (activity?.application as SaveLineUpApplication).database.itemDao()
         )
     }
 

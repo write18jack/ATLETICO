@@ -1,14 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.schedule.StandingsAtapter">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="team"
+            type="com.example.atletico.ui.schedule.Display" />
+    </data>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="90dp"
+        android:padding="5dp">
 
-</FrameLayout>
+        <TextView
+            android:id="@+id/team_rank"
+            android:layout_width="30dp"
+            android:layout_height="80dp"
+            android:layout_weight="1"
+            android:scaleType="fitXY"
+            android:adjustViewBounds="true"
+            android:text="@{team.rank}"
+            />
+
+        <TextView
+            android:id="@+id/team_name"
+            android:layout_width="20dp"
+            android:layout_height="80dp"
+            android:layout_weight="1"
+            android:text="@{team.name}"
+            />
+
+    </LinearLayout>
+
+</layout>

@@ -3,11 +3,13 @@ package com.example.atletico.ui.lineup
 import android.util.Log
 import androidx.lifecycle.*
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+
 
 class LineupViewModel(private val itemDao: ItemDao) : ViewModel() {
 
-    fun allItems(): Flow<List<EntityX>> = itemDao.getItems()
+    fun allItems(): LiveData<List<EntityX>> = itemDao.getItems().asLiveData()
 
     //val lastId = itemDao.selectLastId()
     private var positionId: Int = 0
@@ -143,22 +145,15 @@ class LineupViewModel(private val itemDao: ItemDao) : ViewModel() {
             itemPlayer = itemPlayer
         )
     }
-
-
-//    private fun getUpdatedItemEntry(itemPosition: Int, itemPlayer: Int): EntityX {
-//        return EntityX(
-//            itemPosition = itemPosition,
-//            itemPlayer = itemPlayer
-//        )
-//    }
 }
 
-class LineupViewModelFactory(private val itemDao: ItemDao) : ViewModelProvider.Factory {
+class LineupViewModelFactory(private val itemDao: ItemDao): ViewModelProvider.Factory{
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(LineupViewModel::class.java)) {
+        if(modelClass.isAssignableFrom(LineupViewModel::class.java)){
             @Suppress("UNCHECKED_CAST")
-            return LineupViewModel(itemDao) as T
+            return LineupViewModel(itemDao)as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
+
 }

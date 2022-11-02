@@ -21,7 +21,7 @@ abstract class ItemRoomDatabase : RoomDatabase() {
                     ItemRoomDatabase::class.java,
                     "item_database"
                 )
-                    .createFromAsset("database/formation.db")
+                    .fallbackToDestructiveMigration()
                     .build()
                 INSTANCE = instance
                 instance

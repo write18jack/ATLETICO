@@ -1,3 +1,6 @@
 package com.example.atletico.ui.schedule
 
-data class Display()
+data class Display(
+    val rank: String,
+    val name: String
+)
