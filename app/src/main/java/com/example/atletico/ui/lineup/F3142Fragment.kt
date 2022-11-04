@@ -18,7 +18,9 @@ class F3142Fragment : Fragment() {
     private val lineupViewModel: LineupViewModel by activityViewModels{
         LineupViewModelFactory(
             (activity?.application as SaveLineUpApplication).database
-                .itemDao()
+                .itemDao(),
+            (activity?.application as SaveLineUpApplication).database
+                .formationItemDao()
         )
     }
     private var binding: FragmentF3142Binding? = null
@@ -39,11 +41,10 @@ class F3142Fragment : Fragment() {
         }
         return fragmentBinding.root
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        lineupViewModel.renewalFormation(1, "3-1-4-2")
         binding?.lineupToolbar?.inflateMenu(R.menu.line_up_menu)
-
         binding?.lineupToolbar?.setOnMenuItemClickListener {
             when(it.itemId) {
                 R.id.formation -> {
@@ -58,10 +59,8 @@ class F3142Fragment : Fragment() {
             }
         }
     }
-
     fun goToPlayerList(position:Int){
         lineupViewModel.setPositionId(position)
-
         val action = F3142FragmentDirections.actionF3142FragmentToPlayersFragment(
             position, 3142
         )

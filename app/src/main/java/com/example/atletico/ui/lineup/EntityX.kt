@@ -9,7 +9,6 @@ import androidx.room.PrimaryKey
 @Entity
 data class EntityX(
 //    @PrimaryKey(autoGenerate = true)
-//    val id: Int = 0,
     @PrimaryKey
     @ColumnInfo(name = "position")
     val itemPosition: Int,

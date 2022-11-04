@@ -21,7 +21,9 @@ class F532Fragment : Fragment() {
     private val lineupViewModel: LineupViewModel by activityViewModels {
         LineupViewModelFactory(
             (activity?.application as SaveLineUpApplication).database
-                .itemDao()
+                .itemDao(),
+            (activity?.application as SaveLineUpApplication).database
+                .formationItemDao()
         )
     }
 
@@ -45,6 +47,8 @@ class F532Fragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        lineupViewModel.renewalFormation(1,"5-3-2")
         binding?.lineupToolbar?.inflateMenu(R.menu.line_up_menu)
 
         binding?.lineupToolbar?.setOnMenuItemClickListener {

@@ -19,7 +19,9 @@ class LineupFragment : Fragment() {
     private val lineupViewModel: LineupViewModel by activityViewModels{
         LineupViewModelFactory(
             (activity?.application as SaveLineUpApplication).database
-                .itemDao()
+                .itemDao(),
+            (activity?.application as SaveLineUpApplication).database
+                .formationItemDao()
         )
     }
 
@@ -32,7 +34,6 @@ class LineupFragment : Fragment() {
     ): View {
         val fragmentBinding = FragmentLineUpBinding.inflate(inflater, container, false)
         binding = fragmentBinding
-
         return fragmentBinding.root
     }
 
@@ -43,7 +44,6 @@ class LineupFragment : Fragment() {
         binding?.lineupToolbar?.setOnMenuItemClickListener {
             when(it.itemId){
                 R.id.formation -> {
-                    Log.d("Tag", "LineupF: ${it.itemId}")
                     val dialog = ForDialog { it1 -> selectedFormation(it1) }
                     dialog.show(parentFragmentManager, "formation_dialog")
                     true
@@ -56,6 +56,7 @@ class LineupFragment : Fragment() {
             }
         }
         setLineup()
+        setFormation()
     }
 
     private fun setLineup(){
@@ -66,6 +67,19 @@ class LineupFragment : Fragment() {
                     lineupViewModel.setPositionId(i.itemPosition)
                     lineupViewModel.setPlayerId(i.itemPlayer)
                     lineupViewModel.select()
+                }
+            }
+        }
+    }
+
+    private fun setFormation(){
+        lifecycle.coroutineScope.launch {
+            lineupViewModel.formationItem().observe(viewLifecycleOwner) {
+                if (it == null){
+                    lineupViewModel.addFormation(1,"4-4-2")
+                    selectedFormation("4-4-2")
+                }else{
+                    selectedFormation(it.itemLastFormation)
                 }
             }
         }

@@ -2,7 +2,6 @@ package com.example.atletico.ui.lineup
 
 import android.content.Context.INPUT_METHOD_SERVICE
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -21,7 +20,9 @@ class PlayersFragment : Fragment(), RecyclerViewClickListener {
     private val lineupViewModel: LineupViewModel by activityViewModels {
         LineupViewModelFactory(
             (activity?.application as SaveLineUpApplication).database
-                .itemDao()
+                .itemDao(),
+            (activity?.application as SaveLineUpApplication).database
+                .formationItemDao()
         )
     }
 
@@ -64,8 +65,6 @@ class PlayersFragment : Fragment(), RecyclerViewClickListener {
         // Inflate the layout for this fragment
         val fragmentBinding = FragmentPlayersBinding.inflate(inflater, container, false)
         binding = fragmentBinding
-        //lineupViewModel.setPositionId(position_id)
-        Log.d("TEST", "PF navigationArgs.itemId: ${navigationArgs.itemId}")
         return fragmentBinding.root
     }
 
@@ -88,7 +87,7 @@ class PlayersFragment : Fragment(), RecyclerViewClickListener {
         if (positionIdInPF in lineupViewModel.mapPositionPlayer) {
             // When Player in Map
             if (lineupViewModel.mapPositionPlayer.containsValue(Item.id)) {
-                //position of Koke is depaul
+
                 if (lineupViewModel.mapPositionPlayer[positionIdInPF] == Item.id) {
                     lineupViewModel.updateItemx(positionIdInPF, Item.id)
                 } else {

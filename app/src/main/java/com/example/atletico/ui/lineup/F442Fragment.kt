@@ -21,7 +21,9 @@ import kotlinx.coroutines.launch
 class F442Fragment : Fragment() {
     private val lineupViewModel: LineupViewModel by activityViewModels {
         LineupViewModelFactory(
-            (activity?.application as SaveLineUpApplication).database.itemDao()
+            (activity?.application as SaveLineUpApplication).database.itemDao(),
+            (activity?.application as SaveLineUpApplication).database
+                .formationItemDao()
         )
     }
 
@@ -47,6 +49,9 @@ class F442Fragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        lineupViewModel.renewalFormation(1,"4-4-2")
+
         binding?.lineupToolbar?.inflateMenu(R.menu.line_up_menu2)
 
         binding?.lineupToolbar?.setOnMenuItemClickListener { it ->

@@ -1,6 +1,7 @@
 package com.example.atletico.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.util.SparseArray
 import androidx.core.util.forEach
 import androidx.core.view.forEach
@@ -10,6 +11,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.example.atletico.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlin.math.log
 
 class BottomNavManager(
     private val fragmentManager: FragmentManager,
@@ -137,12 +139,19 @@ class BottomNavManager(
 
                     navHistory.pop(bottomNavigationView.selectedItemId)
                     selectItem(navHistory.current())
+                    Log.d("TAG", "onBackPressed: ${selectItem(navHistory.current())}")
                     return true
                 }
                 return false // super.onBackPressed() will be called, which will pop the fragment itself
             } ?: false
         } else false
     }
+
+//    fun onBackHome() {
+//       if(navHistory.isEmpty){
+//           selectItem(navGraphIds[0])
+//       }else false
+//    }
 
     // to save the tab history during any configuration change
     fun onSaveInstanceState(outState: Bundle?) {
