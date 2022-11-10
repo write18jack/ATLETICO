@@ -48,8 +48,7 @@ class F3142Fragment : Fragment() {
         binding?.lineupToolbar?.setOnMenuItemClickListener {
             when(it.itemId) {
                 R.id.formation -> {
-                    val dialog = ForDialog { selectedFormation(it) }
-                    dialog.show(parentFragmentManager, "formation_dialog")
+                    findNavController().navigate(R.id.action_f3142Fragment_to_forDialog)
                     true
                 }
                 R.id.players -> {
@@ -65,14 +64,6 @@ class F3142Fragment : Fragment() {
             position, 3142
         )
         this.findNavController().navigate(action)
-    }
-    private fun selectedFormation(item:String){
-        when(item){
-            "3-1-4-2"->{Toast.makeText(context, "here!", Toast.LENGTH_LONG).show()}
-            "4-4-2"->{findNavController().navigate(R.id.action_f3142Fragment_to_f442Fragment)}
-            "5-3-2"->{findNavController().navigate(R.id.action_f3142Fragment_to_f532Fragment)}
-            "5-4-1"->{findNavController().navigate(R.id.action_f3142Fragment_to_f541Fragment)}
-        }
     }
     override fun onDestroyView() {
         super.onDestroyView()
