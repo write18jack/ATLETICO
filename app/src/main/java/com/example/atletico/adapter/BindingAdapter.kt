@@ -1,10 +1,11 @@
 package com.example.atletico.adapter
 
 import android.util.Log
+import android.view.Display
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.atletico.R
-import com.example.atletico.ui.schedule.Display
+import com.example.atletico.ui.schedule.DisplayTable
 import com.example.atletico.ui.schedule.StandingsAdapter
 
 object BindingAdapter {
@@ -59,7 +60,7 @@ object BindingAdapter {
 
     @JvmStatic
     @BindingAdapter("listData")
-    fun bindRecyclerView(recylerView: RecyclerView, data: List<Display>?){
+    fun bindRecyclerView(recylerView: RecyclerView, data: List<DisplayTable>?){
         val adapter = recylerView.adapter as StandingsAdapter
         adapter.submitList(data)
 

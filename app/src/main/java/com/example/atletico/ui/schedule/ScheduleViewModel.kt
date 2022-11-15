@@ -9,8 +9,8 @@ import retrofit2.Response
 
 class ScheduleViewModel : ViewModel() {
 
-    private var _standings = MutableStateFlow<List<Display>>(emptyList())
-    val standings: StateFlow<List<Display>> get() = _standings
+    private var _standings = MutableStateFlow<List<DisplayTable>>(emptyList())
+    val standings: StateFlow<List<DisplayTable>> get() = _standings
 
     init {
         getStandings()
@@ -26,14 +26,16 @@ class ScheduleViewModel : ViewModel() {
         }
     }
 
-    private fun toDisplay(response: Response<Standings>){
-
-        _standings.value = response.body()?.data?.table!!.map {
-            Display(
-                rank = it.rank,
-                name = it.name,
+    private fun toDisplay(response: Response<Table>){
+        _standings.value = response.body()?.records!!.map {
+            DisplayTable(
+                team = it.team,
+                played = it.played.toString(),
+                win = it.win.toString(),
+                draw = it.draw.toString(),
+                loss = it.loss.toString(),
+                points = it.points.toString()
             )
         }
-
     }
 }

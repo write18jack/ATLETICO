@@ -2,20 +2,16 @@ package com.example.atletico.ui.schedule
 
 import android.os.Bundle
 import android.util.Log
+import android.view.Display
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil.setContentView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.atletico.databinding.FragmentScheduleBinding
-import com.example.atletico.ui.lineup.LineupViewModel
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class ScheduleFragment : Fragment() {
@@ -45,14 +41,14 @@ class ScheduleFragment : Fragment() {
         Log.d("ScheduleFragment", "observerStandings")
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.standings.collect{displays ->
-                    updateDisplayList(displays)
+                viewModel.standings.collect{displayTables ->
+                    updateDisplayList(displayTables)
                 }
             }
         }
     }
 
-    private fun updateDisplayList(displays: List<Display>){
+    private fun updateDisplayList(displays: List<DisplayTable>){
         Log.d("ScheduleFragment", "updateDisplayList")
         standingsAdapter.submitList(displays)
     }

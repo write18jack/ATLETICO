@@ -1,6 +1,5 @@
 package com.example.atletico.ui.schedule
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -8,25 +7,30 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.atletico.databinding.StandingsItemBinding
 
-class StandingsAdapter : ListAdapter<Display, StandingsAdapter.StandingsViewHolder>(DiffCallback) {
+class StandingsAdapter : ListAdapter<DisplayTable, StandingsAdapter.StandingsViewHolder>(DiffCallback) {
 
         class StandingsViewHolder(
                 private var binding: StandingsItemBinding
                 ) : RecyclerView.ViewHolder(binding.root) {
-                fun bind(display: Display) {
-                        Log.d("StandingsAdapter", "display.rank: ${display.rank}")
-                        binding.team = display
+                fun bind(displayTable: DisplayTable) {
+                        binding.displayTable = displayTable
+//                        binding.tableTeam.text = displayTable.team
+//                        binding.tablePlayed.text = displayTable.played.toString()
+//                        binding.tableWin.text = displayTable.win.toString()
+//                        binding.tableDraw.text = displayTable.draw.toString()
+//                        binding.tableLoss.text = displayTable.loss.toString()
+//                        binding.tablePoints.text = displayTable.points.toString()
                         binding.executePendingBindings()
                 }
         }
 
-        companion object DiffCallback: DiffUtil.ItemCallback<Display>(){
-                override fun areItemsTheSame(oldItem: Display, newItem: Display): Boolean {
-                        return oldItem.rank == newItem.rank
+        companion object DiffCallback: DiffUtil.ItemCallback<DisplayTable>(){
+                override fun areItemsTheSame(oldItem: DisplayTable, newItem: DisplayTable): Boolean {
+                        return oldItem.team == newItem.team
                 }
 
-                override fun areContentsTheSame(oldItem: Display, newItem: Display): Boolean {
-                        return oldItem.name == newItem.name
+                override fun areContentsTheSame(oldItem: DisplayTable, newItem: DisplayTable): Boolean {
+                        return oldItem.points == newItem.points
                 }
         }
 
@@ -35,7 +39,11 @@ class StandingsAdapter : ListAdapter<Display, StandingsAdapter.StandingsViewHold
                 viewType: Int
         ): StandingsViewHolder {
                 return StandingsViewHolder(
-                        StandingsItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                        StandingsItemBinding.inflate(
+                                LayoutInflater.from(parent.context),
+                                parent,
+                                false
+                        )
                 )
         }
 

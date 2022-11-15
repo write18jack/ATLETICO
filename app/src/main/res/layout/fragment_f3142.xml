@@ -57,7 +57,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/rst"
                 app:strokeWidth="15dp"
-                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.ConerSize"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize"
                 android:stateListAnimator="@animator/button_state_list_anim_material"/>
 
             <com.google.android.material.imageview.ShapeableImageView
@@ -72,7 +72,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/lst"
                 app:strokeWidth="15dp"
-                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.ConerSize"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize"
                 android:stateListAnimator="@animator/button_state_list_anim_material"/>
 
             <com.google.android.material.imageview.ShapeableImageView
@@ -87,7 +87,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginStart="10dp"
                 app:strokeWidth="15dp"
-                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.ConerSize"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize"
                 android:stateListAnimator="@animator/button_state_list_anim_material"/>
 
             <com.google.android.material.imageview.ShapeableImageView
@@ -102,7 +102,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/rcm"
                 app:strokeWidth="15dp"
-                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.ConerSize"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize"
                 android:stateListAnimator="@animator/button_state_list_anim_material"/>
 
             <com.google.android.material.imageview.ShapeableImageView
@@ -117,7 +117,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/lcm"
                 app:strokeWidth="15dp"
-                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.ConerSize"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize"
                 android:stateListAnimator="@animator/button_state_list_anim_material"/>
 
             <com.google.android.material.imageview.ShapeableImageView
@@ -132,7 +132,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginEnd="10dp"
                 app:strokeWidth="15dp"
-                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.ConerSize"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize"
                 android:stateListAnimator="@animator/button_state_list_anim_material"/>
 
             <com.google.android.material.imageview.ShapeableImageView
@@ -148,7 +148,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:strokeWidth="15dp"
-                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.ConerSize"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize"
                 android:stateListAnimator="@animator/button_state_list_anim_material"/>
 
             <com.google.android.material.imageview.ShapeableImageView
@@ -164,7 +164,7 @@
                 android:layout_marginStart="40dp"
                 android:layout_marginTop="40dp"
                 app:strokeWidth="15dp"
-                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.ConerSize"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize"
                 android:stateListAnimator="@animator/button_state_list_anim_material"/>
 
             <com.google.android.material.imageview.ShapeableImageView
@@ -179,7 +179,7 @@
                 app:layout_constraintEnd_toStartOf="@id/rcb"
                 app:layout_constraintStart_toEndOf="@id/lcb"
                 app:strokeWidth="15dp"
-                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.ConerSize"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize"
                 android:stateListAnimator="@animator/button_state_list_anim_material"/>
 
             <com.google.android.material.imageview.ShapeableImageView
@@ -195,7 +195,7 @@
                 android:layout_marginEnd="40dp"
                 android:layout_marginTop="40dp"
                 app:strokeWidth="15dp"
-                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.ConerSize"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize"
                 android:stateListAnimator="@animator/button_state_list_anim_material"/>
 
             <com.google.android.material.imageview.ShapeableImageView
@@ -210,7 +210,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:strokeWidth="15dp"
-                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.ConerSize"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize"
                 android:stateListAnimator="@animator/button_state_list_anim_material"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
