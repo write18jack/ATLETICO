@@ -1,18 +1,17 @@
 package com.example.atletico.ui.lineup
 
+import android.content.ClipData
 import android.util.Log
 import androidx.lifecycle.*
-import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
-class LineupViewModel(private val itemDao: ItemDao) : ViewModel() {
+class LineupViewModel(
+    private val itemDao: ItemDao,
+    private val formationItemDao: FormationItemDao): ViewModel() {
 
-    fun allItems(): Flow<List<EntityX>> = itemDao.getItems()
+    fun allItems(): LiveData<List<EntityX>> = itemDao.getItems().asLiveData()
+    fun formationItem(): LiveData<LastFormation> = formationItemDao.getFormation().asLiveData()
 
-    //val lastId = itemDao.selectLastId()
     private var positionId: Int = 0
     private var playerId: Int = 0
     val mapPositionPlayer: MutableMap<Int, Int> = mutableMapOf()
@@ -58,21 +57,8 @@ class LineupViewModel(private val itemDao: ItemDao) : ViewModel() {
     fun setPlayerId(pId: Int) {
         this.playerId = pId
         playerId_check = pId
-        setMap()
+
         Log.d("TEST", "viewmodel: $mapPositionPlayer")
-    }
-
-    fun setMap(){
-        if(mapPositionPlayer.containsKey(positionId)){
-
-        }else{
-            mapPositionPlayer[positionId] = playerId //add to MutableMap
-            addNewItem()//insert
-        }
-    }
-
-    fun setLineupFromDB(positionDB: Int, playerDB: Int){
-
     }
 
     fun select() {
@@ -125,20 +111,48 @@ class LineupViewModel(private val itemDao: ItemDao) : ViewModel() {
         }
     }
 
-//    fun retrieveItem(id: Int) {
-//        viewModelScope.launch {
-//            itemDao.getItem(id).asLiveData()
-//        }
-//    }
+    fun addFormation(id: Int, formation: String){
+        val newFormation = getItemFormation(id, formation)
+        insertFormation(newFormation)
+    }
+
+    private fun insertFormation(item: LastFormation) {
+        viewModelScope.launch {
+            formationItemDao.insertFormation(item)
+        }
+    }
+
+    fun retrieveItem(id: Int): LiveData<LastFormation> {
+        return formationItemDao.getFormationId(id).asLiveData()
+    }
+
+    fun renewalFormation(id: Int, formation: String){
+        val newFormation = getItemFormation(id, formation)
+        updateFormation(newFormation)
+    }
+
+    private fun updateFormation(item: LastFormation) {
+        Log.d("LineupViewModel" , "updateFormation: $item")
+        viewModelScope.launch {
+            formationItemDao.updateFormation(item)
+        }
+    }
+
+    private fun getItemFormation(item1: Int, item2: String): LastFormation{
+        return LastFormation(
+            id = item1,
+            itemLastFormation = item2
+        )
+    }
 
     fun updateItemx(
-//        itemId: Int,
         itemPosition: Int,
         itemPlayer: Int
 
     ) {
-        val updatedItem = getUpdatedItemEntry(itemPosition, itemPlayer)
+        val updatedItem = getItemEntry(itemPosition, itemPlayer)
         updateItem(updatedItem)
+        mapPositionPlayer[positionId] = playerId
     }
 
     private fun updateItem(item: EntityX) {
@@ -147,16 +161,11 @@ class LineupViewModel(private val itemDao: ItemDao) : ViewModel() {
         }
     }
 
-//    fun addNewItem() {
-//        for (i in mapPositionPlayer){
-//            val newItem = getNewItemEntry(i.key, i.value)
-//            insertItem(newItem)
-//        }
-//    }
-fun addNewItem() {
-        val newItem = getNewItemEntry(positionId, playerId)
+    fun addNewItem() {
+        val newItem = getItemEntry(positionId, playerId)
         insertItem(newItem)
-}
+        mapPositionPlayer[positionId] = playerId
+      }
 
     private fun insertItem(item: EntityX) {
         viewModelScope.launch {
@@ -164,14 +173,7 @@ fun addNewItem() {
         }
     }
 
-    private fun getNewItemEntry(itemPosition: Int, itemPlayer: Int): EntityX {
-        return EntityX(
-            itemPosition = itemPosition,
-            itemPlayer = itemPlayer
-        )
-    }
-
-    private fun getUpdatedItemEntry(itemPosition: Int, itemPlayer: Int): EntityX {
+    private fun getItemEntry(itemPosition: Int, itemPlayer: Int): EntityX {
         return EntityX(
             itemPosition = itemPosition,
             itemPlayer = itemPlayer
@@ -179,12 +181,15 @@ fun addNewItem() {
     }
 }
 
-class LineupViewModelFactory(private val itemDao: ItemDao) : ViewModelProvider.Factory {
+class LineupViewModelFactory(
+    private val itemDao: ItemDao,
+    private val formationItemDao: FormationItemDao): ViewModelProvider.Factory{
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(LineupViewModel::class.java)) {
+        if(modelClass.isAssignableFrom(LineupViewModel::class.java)){
             @Suppress("UNCHECKED_CAST")
-            return LineupViewModel(itemDao) as T
+            return LineupViewModel(itemDao, formationItemDao)as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
+
 }

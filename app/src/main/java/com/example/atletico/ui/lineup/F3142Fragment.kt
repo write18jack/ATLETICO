@@ -15,8 +15,16 @@ import com.example.atletico.databinding.FragmentF3142Binding
 
 class F3142Fragment : Fragment() {
 
-    private val lineupViewModel: LineupViewModel by activityViewModels()
+    private val lineupViewModel: LineupViewModel by activityViewModels{
+        LineupViewModelFactory(
+            (activity?.application as SaveLineUpApplication).database
+                .itemDao(),
+            (activity?.application as SaveLineUpApplication).database
+                .formationItemDao()
+        )
+    }
     private var binding: FragmentF3142Binding? = null
+    lateinit var item: EntityX
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,18 +41,14 @@ class F3142Fragment : Fragment() {
         }
         return fragmentBinding.root
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        lineupViewModel.renewalFormation(1, "3-1-4-2")
         binding?.lineupToolbar?.inflateMenu(R.menu.line_up_menu)
-
         binding?.lineupToolbar?.setOnMenuItemClickListener {
             when(it.itemId) {
                 R.id.formation -> {
-                    val dialog = ForDialog(
-                        { selectedFormation(it) }
-                    )
-                    dialog.show(parentFragmentManager, "formation_dialog")
+                    findNavController().navigate(R.id.action_f3142Fragment_to_forDialog)
                     true
                 }
                 R.id.players -> {
@@ -54,18 +58,12 @@ class F3142Fragment : Fragment() {
             }
         }
     }
-
     fun goToPlayerList(position:Int){
-        setFragmentResult("REQUEST_KEY", bundleOf("KEY" to position, "KEY2" to 3142))
-        findNavController().navigate(R.id.action_f3142Fragment_to_playersFragment)
-    }
-    private fun selectedFormation(item:String){
-        when(item){
-            "3-1-4-2"->{Toast.makeText(context, "here!", Toast.LENGTH_LONG).show()}
-            "4-4-2"->{findNavController().navigate(R.id.action_f3142Fragment_to_f442Fragment)}
-            "5-3-2"->{findNavController().navigate(R.id.action_f3142Fragment_to_f532Fragment)}
-            "5-4-1"->{findNavController().navigate(R.id.action_f3142Fragment_to_f541Fragment)}
-        }
+        lineupViewModel.setPositionId(position)
+        val action = F3142FragmentDirections.actionF3142FragmentToPlayersFragment(
+            position, 3142
+        )
+        this.findNavController().navigate(action)
     }
     override fun onDestroyView() {
         super.onDestroyView()

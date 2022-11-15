@@ -1,8 +1,12 @@
 package com.example.atletico.adapter
 
 import android.util.Log
+import android.view.Display
 import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.RecyclerView
 import com.example.atletico.R
+import com.example.atletico.ui.schedule.DisplayTable
+import com.example.atletico.ui.schedule.StandingsAdapter
 
 object BindingAdapter {
 
@@ -12,7 +16,7 @@ object BindingAdapter {
         Log.d("TAG", "BindingAdapter iconId: $icon")
 
         val iconId = when (icon) {
-            1-> R.drawable.felix
+            1->R.drawable.felix
             2->R.drawable.correa
             3->R.drawable.griezmann
             4->R.drawable.cunha
@@ -52,5 +56,13 @@ object BindingAdapter {
         Image.let {
             view.setBackgroundResource(it)
         }
+    }
+
+    @JvmStatic
+    @BindingAdapter("listData")
+    fun bindRecyclerView(recylerView: RecyclerView, data: List<DisplayTable>?){
+        val adapter = recylerView.adapter as StandingsAdapter
+        adapter.submitList(data)
+
     }
 }

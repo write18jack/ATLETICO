@@ -2,7 +2,6 @@ package com.example.atletico.ui.lineup
 
 import android.content.Context.INPUT_METHOD_SERVICE
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -21,7 +20,9 @@ class PlayersFragment : Fragment(), RecyclerViewClickListener {
     private val lineupViewModel: LineupViewModel by activityViewModels {
         LineupViewModelFactory(
             (activity?.application as SaveLineUpApplication).database
-                .itemDao()
+                .itemDao(),
+            (activity?.application as SaveLineUpApplication).database
+                .formationItemDao()
         )
     }
 
@@ -64,8 +65,6 @@ class PlayersFragment : Fragment(), RecyclerViewClickListener {
         // Inflate the layout for this fragment
         val fragmentBinding = FragmentPlayersBinding.inflate(inflater, container, false)
         binding = fragmentBinding
-        //lineupViewModel.setPositionId(position_id)
-        Log.d("TEST", "PF navigationArgs.itemId: ${navigationArgs.itemId}")
         return fragmentBinding.root
     }
 
@@ -82,16 +81,39 @@ class PlayersFragment : Fragment(), RecyclerViewClickListener {
     }
 
     override fun onRecyclerViewItemClick(view: View, Item: Players) {
-        if (lineupViewModel.mapPositionPlayer.containsValue(Item.id)) {
+        //positionId
+        val positionIdInPF = navigationArgs.itemId
+        // When Position in Map
+        if (positionIdInPF in lineupViewModel.mapPositionPlayer) {
+            // When Player in Map
+            if (lineupViewModel.mapPositionPlayer.containsValue(Item.id)) {
+
+                if (lineupViewModel.mapPositionPlayer[positionIdInPF] == Item.id) {
+                    lineupViewModel.updateItemx(positionIdInPF, Item.id)
+                } else {
+                    //Player ID set to change source
+                    val previousID: Int? = lineupViewModel.mapPositionPlayer[positionIdInPF]
+
+                    //Position ID to be modified
+                    val changePosition = lineupViewModel.mapPositionPlayer.filterValues {
+                        it == Item.id
+                    }.keys.elementAt(0)
+
+                    lineupViewModel.updateItemx(positionIdInPF, Item.id)
+                    if (previousID != null) {
+                        lineupViewModel.updateItemx(changePosition, previousID)
+                    }
+                }
+            } else {
+                lineupViewModel.updateItemx(positionIdInPF, Item.id)
+            }
+            //not position in Map
+        } else if (lineupViewModel.mapPositionPlayer.containsValue(Item.id)) {
             Toast.makeText(requireContext(), "Duplicate players!", Toast.LENGTH_LONG).show()
         } else {
-            Log.d("XXX", "PF playerID: $")
             lineupViewModel.setPlayerId(Item.id)
             lineupViewModel.select()
-        }
-        val positionIdInPF = navigationArgs.itemId //positionId
-        if (lineupViewModel.mapPositionPlayer.containsKey(positionIdInPF)) {
-            lineupViewModel.updateItemx(positionIdInPF, Item.id)
+            lineupViewModel.addNewItem()
         }
 
         when (navigationArgs.formationId) {
